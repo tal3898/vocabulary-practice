@@ -9,8 +9,8 @@ interface Props {
 function Card({word}: Props) {
   return (
     <div className='card'>
-        <p style={{color: 'black'}}>{word.english}</p>
-        <p>{word.spanish}</p>
+        <p className='originalWord'>{word.english}</p>
+        <p className='translationWord'>{word.spanish}</p>
     </div>
   );
 }

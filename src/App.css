@@ -4,6 +4,10 @@
   height: 100vh;
 }
 
+.header {
+  position: absolute;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
