@@ -21,3 +21,12 @@
     margin-left: auto;
     font-size: 20px;
 }
+
+.revealButton {
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 20px;
+    color: #6868f9;
+    cursor: pointer;
+}
