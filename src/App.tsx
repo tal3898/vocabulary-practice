@@ -11,8 +11,8 @@ const stub = [{
   english: 'have', 
   spanish: 'tener'
 },{
-  english: 'como', 
-  spanish: 'how'
+  english: 'how', 
+  spanish: 'como'
 },]
 
 function App() {
