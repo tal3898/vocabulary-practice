@@ -25,7 +25,6 @@ function Card({wordsList}: Props) {
 
   const changeOriginalLanguageRandomly = () => {
     const randomBinaryNumber = getRandomInt(2);
-    console.log({randomBinaryNumber})
     setTranslateFromEnglish(randomBinaryNumber === 1);
   }
 
@@ -35,7 +34,6 @@ function Card({wordsList}: Props) {
     setIsTranslationHidden(true);
   }
   
-  console.log({translateFromEnglish});
   const originalWord = translateFromEnglish ? currentWord.english : currentWord.spanish;
   const translationWord = translateFromEnglish ? currentWord.spanish : currentWord.english;
 
@@ -44,7 +42,7 @@ function Card({wordsList}: Props) {
 
   return (
     <div className='card'>
-        <p>{originalLanguage} {'->'} {translationLanguage}</p>
+        <p style={{fontSize: 10}}>{originalLanguage} {'->'} {translationLanguage}</p>
         <p className='originalWord'>{originalWord}</p>
         {!isTranslationHidden && <p className='translationWord'>{translationWord}</p>}
         {isTranslationHidden && <p className='revealButton' onClick={() => setIsTranslationHidden(false)}>reveal</p>}
