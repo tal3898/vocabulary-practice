@@ -17,6 +17,14 @@
   margin: 20px;
 }
 
+.applyListButton {
+  cursor: pointer;
+  color: rgb(106, 106, 106); 
+  margin-top: 25px; 
+  display: flex; 
+  flex-direction: row-reverse;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

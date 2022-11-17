@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Card from './card/card';
 import {AiOutlineUnorderedList} from 'react-icons/ai';
-
+import {CiPlay1} from 'react-icons/ci';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -58,9 +58,11 @@ function App() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <div>List the words to practice</div>
-            <textarea name="Text1" style={{resize: 'none', width: '100%', height: '10rem'}} />
-            
+            <div style={{marginBottom: 10}}>List the words to practice</div>
+            <div style={{ width: '100%', height: '10rem', paddingRight: 10}} >
+            <textarea name="Text1" style={{resize: 'none', width: '100%', height: '100%'}}/>
+            </div>
+            <div className='applyListButton'><CiPlay1 size={30}/></div>
           </Box>
         </Modal>
     </div>
