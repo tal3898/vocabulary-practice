@@ -1,13 +1,10 @@
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 import React, { useState } from 'react';
-import logo from './logo.svg';
+import { AiOutlineUnorderedList } from 'react-icons/ai';
+import { CiPlay1 } from 'react-icons/ci';
 import './App.css';
 import Card from './card/card';
-import {AiOutlineUnorderedList} from 'react-icons/ai';
-import {CiPlay1} from 'react-icons/ci';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 import { Word } from './models/word';
 
 const style = {
