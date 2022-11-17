@@ -46,13 +46,12 @@ function App() {
         const wordParts = word.split(' - ');
         const spanishTranslation = wordParts[0];
         const englishTranslation = wordParts[1];
-        if (spanishTranslation === undefined || englishTranslation === undefined) {
-          throw new Error('not valid format');
+        if (spanishTranslation !== undefined && englishTranslation !== undefined) {
+          finalWordsList.push({
+            english: englishTranslation,
+            spanish: spanishTranslation,
+          })
         }
-        finalWordsList.push({
-          english: englishTranslation,
-          spanish: spanishTranslation,
-        })
       }
   
       setWordsList(finalWordsList);
