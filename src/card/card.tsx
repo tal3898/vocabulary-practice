@@ -8,8 +8,8 @@ interface Props {
 
 function Card({word}: Props) {
   return (
-    <div>
-        <p>{word.english}</p>
+    <div className='card'>
+        <p style={{color: 'black'}}>{word.english}</p>
         <p>{word.spanish}</p>
     </div>
   );

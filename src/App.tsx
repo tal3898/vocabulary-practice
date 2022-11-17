@@ -6,10 +6,8 @@ import Card from './card/card';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>hjel</p>
+        {/* <p>hjel</p> */}
         <Card word={{english: 'asd', spanish: 'ssqwe'}} />
-      </header>
     </div>
   );
 }
