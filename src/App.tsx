@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Card from './card/card';
@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Word } from './models/word';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -35,34 +36,51 @@ const stub = [{
 
 function App() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [wordsInputText, setWordsInputText] = useState('');
+  const [wordsList, setWordsList] = useState<Word[]>(stub);
 
+  const changeWordsList = () => {
+    console.log({wordsInputText})
+    const allWords = wordsInputText.split('\n');
+    const finalWordsList: Word[] = [];
+    for (const word of allWords) {
+      const wordParts = word.split(' - ');
+      const spanishTranslation = wordParts[0];
+      const englishTranslation = wordParts[1];
+      finalWordsList.push({
+        english: englishTranslation,
+        spanish: spanishTranslation,
+      })
+    }
+
+    setWordsList(finalWordsList);
+    setOpen(false);
+  }
 
   return (
     <div className="App" style={{ padding: 1}}>
         {/* <p>hjel</p> */}
         <div  className='header'>
-          <div onClick={handleOpen} className="listButton">
+          <div onClick={() => setOpen(true)} className="listButton">
             <AiOutlineUnorderedList color='rgb(106 106 106)' size={40} />
           </div>
         </div>
         <div className='content' style={{display: 'flex', height: '100%'}}>
-          <Card wordsList={stub} />
+          <Card wordsList={wordsList} />
         </div>
 
         <Modal
           open={open}
-          onClose={handleClose}
+          onClose={() => setOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
             <div style={{marginBottom: 10}}>List the words to practice</div>
             <div style={{ width: '100%', height: '10rem', paddingRight: 10}} >
-            <textarea name="Text1" style={{resize: 'none', width: '100%', height: '100%'}}/>
+            <textarea value={wordsInputText} onChange={(e) => setWordsInputText(e.target.value)} name="Text1" style={{resize: 'none', width: '100%', height: '100%'}}/>
             </div>
-            <div className='applyListButton'><CiPlay1 size={30}/></div>
+            <div className='applyListButton'><CiPlay1 onClick={changeWordsList} size={30}/></div>
           </Box>
         </Modal>
     </div>
