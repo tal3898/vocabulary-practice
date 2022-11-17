@@ -25,6 +25,12 @@
   flex-direction: row-reverse;
 }
 
+.errorText {
+  padding-top: 3px;
+  color: #ff5858;
+  margin-bottom: 10px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
