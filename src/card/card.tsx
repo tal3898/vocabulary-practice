@@ -3,6 +3,7 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { OriginalLanguage } from '../models/originalLanguage';
 import { Word } from '../models/word';
 import './card.css';
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 interface Props {
     wordsList: Word[];
@@ -19,6 +20,16 @@ function Card({fromLanguage, wordsList}: Props) {
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);
   const [currentWord, setCurrentWord] = useState(wordsList[0] ?? defaultWord);
   const [translateFromEnglish, setTranslateFromEnglish] = useState(fromLanguage === OriginalLanguage.ENGLISH);
+  
+  const { speak, voices } = useSpeechSynthesis();
+  const spanishVoice = voices.find((v: any) => v.name==='Google español');
+  
+  const originalWord = translateFromEnglish ? currentWord.english : currentWord.spanish;
+  const translationWord = translateFromEnglish ? currentWord.spanish : currentWord.english;
+
+  const originalLanguage = translateFromEnglish ? 'English' : 'Spanish';
+  const translationLanguage = translateFromEnglish ? 'Spanish' : 'English';
+
 
   useEffect(() => {
       console.log('d')
@@ -32,30 +43,40 @@ function Card({fromLanguage, wordsList}: Props) {
       }
     }, [fromLanguage])
 
-  const changeWordRandomly = () => {
+  const getRandomWord = () => {
     const randomIndex = getRandomInt(wordsList.length);
-    setCurrentWord(wordsList[randomIndex]);
+    return wordsList[randomIndex];
   }
 
-  const changeOriginalLanguageRandomly = () => {
+  const getRandomOriginalLanguage = () => {
     const randomBinaryNumber = getRandomInt(2);
-    setTranslateFromEnglish(randomBinaryNumber === 1);
+    return randomBinaryNumber === 1;
   }
 
   const changeToNextWord = () => {
+    let isNextWordSpanish = fromLanguage === OriginalLanguage.SPANISH;
     if (fromLanguage === OriginalLanguage.RANDOM) {
       console.log('changins')
-      changeOriginalLanguageRandomly();
+      const isEnglish = getRandomOriginalLanguage();
+      isNextWordSpanish = !isEnglish;
+      setTranslateFromEnglish(isEnglish);
     }
-    changeWordRandomly();
+    
+    const randomWord = getRandomWord();
+    setCurrentWord(randomWord);
     setIsTranslationHidden(true);
-  }
-  
-  const originalWord = translateFromEnglish ? currentWord.english : currentWord.spanish;
-  const translationWord = translateFromEnglish ? currentWord.spanish : currentWord.english;
 
-  const originalLanguage = translateFromEnglish ? 'English' : 'Spanish';
-  const translationLanguage = translateFromEnglish ? 'Spanish' : 'English';
+    if (isNextWordSpanish) {
+      speak({ text: randomWord.spanish , voice: spanishVoice})
+    }
+  }
+
+  const revealTranslation = () => {
+    setIsTranslationHidden(false);
+    if (translateFromEnglish) {
+      speak({ text: translationWord , voice: spanishVoice})
+    }
+  }
 
   return (
     <div className='card'>
@@ -64,7 +85,7 @@ function Card({fromLanguage, wordsList}: Props) {
         </p>
         <p className='originalWord'>{originalWord}</p>
         {!isTranslationHidden && <p className='translationWord'>{translationWord}</p>}
-        {isTranslationHidden && <p className='revealButton' onClick={() => setIsTranslationHidden(false)}>reveal</p>}
+        {isTranslationHidden && <p className='revealButton' onClick={revealTranslation}>reveal</p>}
         <AiOutlineArrowLeft style={{cursor: 'pointer'}} size={20} onClick={changeToNextWord} />
     </div>
   );
