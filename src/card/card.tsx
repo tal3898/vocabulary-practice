@@ -24,7 +24,7 @@ function Card({fromLanguage, wordsList}: Props) {
   const [isSoundOn, setIsSoundOn] = useState(false);
 
   const { speak, voices } = useSpeechSynthesis();
-  const spanishVoice = voices[11];//.find((v: any) => v.name==='Google español');
+  const spanishVoice = voices.find((v: any) => v.lang==='es-ES');
   
   const originalWord = translateFromEnglish ? currentWord.english : currentWord.spanish;
   const translationWord = translateFromEnglish ? currentWord.spanish : currentWord.english;
