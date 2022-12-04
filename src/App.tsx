@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import React, { useState } from 'react';
-import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { CiPlay1 } from 'react-icons/ci';
 import { IoMdSettings } from 'react-icons/io';
 import './App.css';

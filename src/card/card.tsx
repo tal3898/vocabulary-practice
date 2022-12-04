@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import './card.css';
-import {Word} from '../models/word'
-import {AiOutlineArrowLeft} from 'react-icons/ai'
+import { useEffect, useState } from 'react';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { OriginalLanguage } from '../models/originalLanguage';
+import { Word } from '../models/word';
+import './card.css';
 
 interface Props {
     wordsList: Word[];
@@ -19,19 +19,6 @@ function Card({fromLanguage, wordsList}: Props) {
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);
   const [currentWord, setCurrentWord] = useState(wordsList[0] ?? defaultWord);
   const [translateFromEnglish, setTranslateFromEnglish] = useState(fromLanguage === OriginalLanguage.ENGLISH);
-  // console.log({translateFromEnglish, fromLanguage})
-
-  // const translateFromEnglish = useMemo(() => {
-  //   console.log('d')
-  //   if (fromLanguage === OriginalLanguage.ENGLISH) {
-  //     return true;
-  //   } else if (fromLanguage === OriginalLanguage.SPANISH) {
-  //     return false;
-  //   } else {
-  //     const randomBinaryNumber = getRandomInt(2);
-  //     return randomBinaryNumber === 1;
-  //   }
-  // }, [])
 
   useEffect(() => {
       console.log('d')
@@ -72,7 +59,9 @@ function Card({fromLanguage, wordsList}: Props) {
 
   return (
     <div className='card'>
-        <p style={{fontSize: 10}}>{originalLanguage} {'->'} {translationLanguage}</p>
+        <p style={{fontSize: 10, visibility: fromLanguage === OriginalLanguage.RANDOM ? 'visible': 'hidden'}}>
+          {originalLanguage} {'->'} {translationLanguage}
+        </p>
         <p className='originalWord'>{originalWord}</p>
         {!isTranslationHidden && <p className='translationWord'>{translationWord}</p>}
         {isTranslationHidden && <p className='revealButton' onClick={() => setIsTranslationHidden(false)}>reveal</p>}
