@@ -18,6 +18,15 @@
   margin: 15px 0px 0px 15px;
 }
 
+
+.originalLangBtn {
+  /* background-color: rgb(106 106 106); */
+  color: rgb(106 106 106);
+  margin: 15px 0px 0px 15px;
+  font-size: 30px;
+  padding: 0px;
+}
+
 .applyListButton {
   cursor: pointer;
   color: rgb(106, 106, 106); 

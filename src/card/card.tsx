@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './card.css';
 import {Word} from '../models/word'
 import {AiOutlineArrowLeft} from 'react-icons/ai'
+import { OriginalLanguage } from '../models/originalLanguage';
 
 interface Props {
     wordsList: Word[];
+    fromLanguage: OriginalLanguage;
 }
 
 const defaultWord: Word = {english: '...', spanish: '...'};
@@ -13,10 +15,35 @@ function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-function Card({wordsList}: Props) {
+function Card({fromLanguage, wordsList}: Props) {
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);
   const [currentWord, setCurrentWord] = useState(wordsList[0] ?? defaultWord);
-  const [translateFromEnglish, setTranslateFromEnglish] = useState(false);
+  const [translateFromEnglish, setTranslateFromEnglish] = useState(fromLanguage === OriginalLanguage.ENGLISH);
+  // console.log({translateFromEnglish, fromLanguage})
+
+  // const translateFromEnglish = useMemo(() => {
+  //   console.log('d')
+  //   if (fromLanguage === OriginalLanguage.ENGLISH) {
+  //     return true;
+  //   } else if (fromLanguage === OriginalLanguage.SPANISH) {
+  //     return false;
+  //   } else {
+  //     const randomBinaryNumber = getRandomInt(2);
+  //     return randomBinaryNumber === 1;
+  //   }
+  // }, [])
+
+  useEffect(() => {
+      console.log('d')
+      if (fromLanguage === OriginalLanguage.ENGLISH) {
+        setTranslateFromEnglish(true);
+      } else if (fromLanguage === OriginalLanguage.SPANISH) {
+        setTranslateFromEnglish(false);
+      } else {
+        const randomBinaryNumber = getRandomInt(2);
+        setTranslateFromEnglish(randomBinaryNumber === 1);
+      }
+    }, [fromLanguage])
 
   const changeWordRandomly = () => {
     const randomIndex = getRandomInt(wordsList.length);
@@ -29,8 +56,11 @@ function Card({wordsList}: Props) {
   }
 
   const changeToNextWord = () => {
+    if (fromLanguage === OriginalLanguage.RANDOM) {
+      console.log('changins')
+      changeOriginalLanguageRandomly();
+    }
     changeWordRandomly();
-    changeOriginalLanguageRandomly();
     setIsTranslationHidden(true);
   }
   

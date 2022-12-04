@@ -6,6 +6,7 @@ import { CiPlay1 } from 'react-icons/ci';
 import { IoMdSettings } from 'react-icons/io';
 import './App.css';
 import Card from './card/card';
+import { OriginalLanguage } from './models/originalLanguage';
 import { Word } from './models/word';
 
 const style = {
@@ -37,6 +38,7 @@ function App() {
   const [wordsInputText, setWordsInputText] = useState('');
   const [wordsList, setWordsList] = useState<Word[]>(stub);
   const [hasError, setHasError] = useState(false);
+  const [fromLanguage, setFromLanguage] = useState(OriginalLanguage.ENGLISH);
 
   const changeWordsList = () => {
     try {
@@ -64,6 +66,16 @@ function App() {
 
   }
 
+  const changeOriginalLanguage = () => {
+    if (fromLanguage === OriginalLanguage.ENGLISH) {
+      setFromLanguage(OriginalLanguage.SPANISH);
+    } else if (fromLanguage === OriginalLanguage.SPANISH) {
+      setFromLanguage(OriginalLanguage.RANDOM);
+    } else if (fromLanguage === OriginalLanguage.RANDOM) {
+      setFromLanguage(OriginalLanguage.ENGLISH);
+    }
+  }
+
   return (
     <div className="App" style={{ padding: 1}}>
         {/* <p>hjel</p> */}
@@ -71,12 +83,12 @@ function App() {
           <div onClick={() => setOpen(true)} className="listButton">
             <IoMdSettings color='rgb(106 106 106)' size={40} />
           </div>
-          <div onClick={() => setOpen(true)} className="listButton">
-            <AiOutlineUnorderedList color='rgb(106 106 106)' size={40} />
+          <div onClick={() => changeOriginalLanguage()} className="originalLangBtn">
+            {fromLanguage}
           </div>
         </div>
         <div className='content' style={{display: 'flex', height: '100%'}}>
-          <Card wordsList={wordsList} />
+          <Card fromLanguage={fromLanguage} wordsList={wordsList} />
         </div>
 
         <Modal
@@ -89,11 +101,10 @@ function App() {
             <div style={{marginBottom: 5, fontSize: 20}}>List the words to practice</div>
             <div style={{visibility: hasError ? 'visible' : 'hidden'}} className="errorText">Error: Not valid format</div>
             <div style={{ width: '100%', height: '10rem', paddingRight: 10}} >
-            <textarea value={wordsInputText} onChange={(e) => setWordsInputText(e.target.value)} name="Text1" style={{resize: 'none', width: '100%', height: '100%'}}/>
+              <textarea value={wordsInputText} onChange={(e) => setWordsInputText(e.target.value)} name="Text1" style={{resize: 'none', width: '100%', height: '100%'}}/>
             </div>
             <div className='applyListButton'>
               <CiPlay1 onClick={changeWordsList} size={30}/>
-              
             </div>
           </Box>
         </Modal>
