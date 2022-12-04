@@ -20,7 +20,7 @@
 
 
 .originalLangBtn {
-  /* background-color: rgb(106 106 106); */
+  cursor: pointer;
   color: rgb(106 106 106);
   margin: 15px 0px 0px 15px;
   font-size: 30px;
