@@ -6,6 +6,7 @@
 
 .header {
   position: absolute;
+  display: flex;
 }
 
 .listButton {
@@ -14,7 +15,7 @@
   width: fit-content;
   height: fit-content; 
   border-radius: 10px;
-  margin: 20px;
+  margin: 15px 0px 0px 15px;
 }
 
 .applyListButton {
