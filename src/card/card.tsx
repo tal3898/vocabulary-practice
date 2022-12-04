@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { GiSoundOn, GiSoundOff } from 'react-icons/gi';
 import { OriginalLanguage } from '../models/originalLanguage';
 import { Word } from '../models/word';
 import './card.css';
@@ -20,7 +21,8 @@ function Card({fromLanguage, wordsList}: Props) {
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);
   const [currentWord, setCurrentWord] = useState(wordsList[0] ?? defaultWord);
   const [translateFromEnglish, setTranslateFromEnglish] = useState(fromLanguage === OriginalLanguage.ENGLISH);
-  
+  const [isSoundOn, setIsSoundOn] = useState(false);
+
   const { speak, voices } = useSpeechSynthesis();
   const spanishVoice = voices.find((v: any) => v.name==='Google español');
   
@@ -61,28 +63,33 @@ function Card({fromLanguage, wordsList}: Props) {
       isNextWordSpanish = !isEnglish;
       setTranslateFromEnglish(isEnglish);
     }
-    
+
     const randomWord = getRandomWord();
     setCurrentWord(randomWord);
     setIsTranslationHidden(true);
 
-    if (isNextWordSpanish) {
+    if (isNextWordSpanish && isSoundOn) {
       speak({ text: randomWord.spanish , voice: spanishVoice})
     }
   }
 
   const revealTranslation = () => {
     setIsTranslationHidden(false);
-    if (translateFromEnglish) {
+    if (translateFromEnglish && isSoundOn) {
       speak({ text: translationWord , voice: spanishVoice})
     }
   }
 
   return (
     <div className='card'>
-        <p style={{fontSize: 10, visibility: fromLanguage === OriginalLanguage.RANDOM ? 'visible': 'hidden'}}>
-          {originalLanguage} {'->'} {translationLanguage}
-        </p>
+        <div style={{display: 'flex'}}>
+          <div className='audioBtn' onClick={() => {setIsSoundOn(!isSoundOn)}}>
+            {isSoundOn ? <GiSoundOn size={25}/> : <GiSoundOff size={25}/>}
+          </div>
+          <p className='fromToTxt' style={{fontSize: 10, visibility: fromLanguage === OriginalLanguage.RANDOM ? 'visible': 'hidden'}}>
+            {originalLanguage} {'->'} {translationLanguage}
+          </p>
+        </div>
         <p className='originalWord'>{originalWord}</p>
         {!isTranslationHidden && <p className='translationWord'>{translationWord}</p>}
         {isTranslationHidden && <p className='revealButton' onClick={revealTranslation}>reveal</p>}
