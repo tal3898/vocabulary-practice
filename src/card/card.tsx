@@ -136,10 +136,11 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
         </p>
       </div>
       <p className="originalWord">{originalWord}</p>
-      {!isTranslationHidden && (
+      {(!isTranslationHidden ||
+        selectedLearningOption === LearningOption.NEW) && (
         <p className="translationWord">{translationWord}</p>
       )}
-      {isTranslationHidden && (
+      {isTranslationHidden && selectedLearningOption !== LearningOption.NEW && (
         <p className="revealButton" onClick={revealTranslation}>
           reveal
         </p>
