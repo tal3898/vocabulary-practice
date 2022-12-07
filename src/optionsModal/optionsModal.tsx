@@ -74,18 +74,21 @@ export const OptionsModal = ({ onChangeWordsList, open, setIsOpen }: Props) => {
       <Box sx={style}>
         <div className="practiceOptions">
           <OptionItem
+            optionType={LearningOption.NEW}
             isSelecteed={selectedOption === LearningOption.NEW}
             reactIcon={GiPerspectiveDiceSixFacesRandom}
             setSelectedOption={setSelectedOption}
             text="New Wordss"
           />
           <OptionItem
+            optionType={LearningOption.PRACTICE}
             isSelecteed={selectedOption === LearningOption.PRACTICE}
             reactIcon={GrUserWorker}
             setSelectedOption={setSelectedOption}
             text="Practice"
           />
           <OptionItem
+            optionType={LearningOption.CUSTOM}
             isSelecteed={selectedOption === LearningOption.CUSTOM}
             reactIcon={FaEdit}
             setSelectedOption={setSelectedOption}

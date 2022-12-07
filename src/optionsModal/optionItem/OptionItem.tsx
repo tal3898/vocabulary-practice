@@ -6,19 +6,21 @@ interface Props {
   text: string;
   reactIcon: IconType;
   isSelecteed: boolean;
+  optionType: LearningOption;
   setSelectedOption: (isOpen: LearningOption) => void;
 }
 
 export const OptionItem = ({
   reactIcon: Icon,
   text,
+  optionType,
   isSelecteed,
   setSelectedOption,
 }: Props) => {
   return (
     <div
       className="specificPracticeOption"
-      onClick={() => setSelectedOption(LearningOption.NEW)}
+      onClick={() => setSelectedOption(optionType)}
       style={{
         backgroundColor: isSelecteed ? "rgb(106, 106, 106)" : undefined,
       }}
