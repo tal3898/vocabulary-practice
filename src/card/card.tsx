@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { AiOutlineArrowLeft, AiFillPlusCircle } from "react-icons/ai";
-import { GiSoundOn, GiSoundOff } from "react-icons/gi";
+import { AiFillPlusCircle, AiOutlineArrowLeft } from "react-icons/ai";
+import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { useSpeechSynthesis } from "react-speech-kit";
+import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
-import "./card.css";
-import { useSpeechSynthesis } from "react-speech-kit";
-import translate from "translate";
-import randomWords from "random-words";
-import { LearningOption } from "../models/learningOption";
 import {
   getPracticeWords,
   savePracticeWords,
 } from "../utils/practiceLocalStorage";
+import "./card.css";
 
 interface Props {
   wordsList: Word[];
