@@ -5,13 +5,16 @@ import { CiPlay1 } from "react-icons/ci";
 import translate from "translate";
 import "./optionsModal.css";
 import { Word } from "../models/word";
+import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import { GrUserWorker } from "react-icons/gr";
+import { FaEdit } from "react-icons/fa";
 
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "70%",
+  width: "min(70%, 550px)",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -66,6 +69,20 @@ export const OptionsModal = ({ onChangeWordsList, open, setIsOpen }: Props) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
+        <div className="practiceOptions">
+          <div className="specificPracticeOption">
+            <GiPerspectiveDiceSixFacesRandom size={40} className="optionIcon" />
+            <div className="optionName">New Words</div>
+          </div>
+          <div className="specificPracticeOption">
+            <GrUserWorker size={40} className="optionIcon" />
+            <div className="optionName">Practice</div>
+          </div>
+          <div className="specificPracticeOption">
+            <FaEdit size={40} className="optionIcon" />
+            <div className="optionName">Custom</div>
+          </div>
+        </div>
         <div style={{ marginBottom: 5, fontSize: 20 }}>
           List the words to practice
         </div>
