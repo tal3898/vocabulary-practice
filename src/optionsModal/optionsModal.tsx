@@ -49,7 +49,7 @@ export const OptionsModal = ({
   const practiceWords = getPracticeWords();
   translate.engine = "google";
 
-  const saveRandomWlist = async () => {
+  const saveRandomList = async () => {
     const randomWordsToLearn = randomWords(50);
     const wordsList: Word[] = [];
     for (const word of randomWordsToLearn) {
@@ -62,6 +62,13 @@ export const OptionsModal = ({
     console.log({ wordsList });
     onChangeWordsList(wordsList);
     setSelectedLearningOption(LearningOption.NEW);
+    setIsOpen(false);
+    setHasError(false);
+  };
+
+  const savePracticedWords = async () => {
+    onChangeWordsList(practiceWords);
+    setSelectedLearningOption(LearningOption.PRACTICE);
     setIsOpen(false);
     setHasError(false);
   };
@@ -97,8 +104,8 @@ export const OptionsModal = ({
 
   const learningHandlers = {
     [LearningOption.CUSTOM]: saveCustomList,
-    [LearningOption.NEW]: saveRandomWlist,
-    [LearningOption.PRACTICE]: saveCustomList,
+    [LearningOption.NEW]: saveRandomList,
+    [LearningOption.PRACTICE]: savePracticedWords,
   };
 
   const saveOptions = async () => {
@@ -172,7 +179,7 @@ export const OptionsModal = ({
             {selectedOption === LearningOption.PRACTICE &&
               practiceWords.length === 0 && (
                 <div style={{ margin: "auto" }}>
-                  You didn't learn new Words to practiced with
+                  You didn't learn new Words to practice with
                 </div>
               )}
             {selectedOption === LearningOption.PRACTICE &&
