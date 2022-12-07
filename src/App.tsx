@@ -7,6 +7,7 @@ import './App.css';
 import Card from './card/card';
 import { OriginalLanguage } from './models/originalLanguage';
 import { Word } from './models/word';
+import translate from "translate";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -38,6 +39,9 @@ function App() {
   const [wordsList, setWordsList] = useState<Word[]>(stub);
   const [hasError, setHasError] = useState(false);
   const [fromLanguage, setFromLanguage] = useState(OriginalLanguage.ENGLISH);
+
+  translate.engine = "google";
+
 
   const changeWordsList = () => {
     try {
