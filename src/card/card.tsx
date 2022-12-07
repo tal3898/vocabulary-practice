@@ -8,6 +8,10 @@ import { useSpeechSynthesis } from "react-speech-kit";
 import translate from "translate";
 import randomWords from "random-words";
 import { LearningOption } from "../models/learningOption";
+import {
+  getPracticeWords,
+  savePracticeWords,
+} from "../utils/practiceLocalStorage";
 
 interface Props {
   wordsList: Word[];
@@ -22,13 +26,13 @@ function getRandomInt(max: number) {
 }
 
 function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
-  console.log({ selectedLearningOption });
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);
   const [currentWord, setCurrentWord] = useState(wordsList[0] ?? defaultWord);
   const [translateFromEnglish, setTranslateFromEnglish] = useState(
     fromLanguage === OriginalLanguage.ENGLISH
   );
   const [isSoundOn, setIsSoundOn] = useState(false);
+  const [isWordSaved, setIsWordSaved] = useState(false);
 
   useEffect(() => {
     console.log("list changed");
@@ -83,6 +87,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     const randomWord = getRandomWord();
     setCurrentWord(randomWord);
     setIsTranslationHidden(true);
+    setIsWordSaved(false);
 
     if (isNextWordSpanish && isSoundOn) {
       speak({ text: randomWord.spanish, voice: spanishVoice });
@@ -99,6 +104,13 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     if (translateFromEnglish && isSoundOn) {
       speak({ text: translationWord, voice: spanishVoice });
     }
+  };
+
+  const addNewWordToPractice = () => {
+    const practiceWords = getPracticeWords();
+    practiceWords.push(currentWord);
+    savePracticeWords(practiceWords);
+    setIsWordSaved(true);
   };
 
   return (
@@ -135,11 +147,11 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       <div className="cardActions">
         <AiOutlineArrowLeft
           style={{ cursor: "pointer" }}
-          size={26}
+          size={28}
           onClick={changeToNextWord}
         />
-        {selectedLearningOption === LearningOption.NEW && (
-          <div className="addToPracticeAction">
+        {selectedLearningOption === LearningOption.NEW && !isWordSaved && (
+          <div className="addToPracticeAction" onClick={addNewWordToPractice}>
             <AiFillPlusCircle size={26} />
           </div>
         )}

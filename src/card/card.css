@@ -51,4 +51,5 @@
 .addToPracticeAction {
   width: fit-content;
   color: #66bb6a;
+  cursor: pointer;
 }
