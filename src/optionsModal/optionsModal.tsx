@@ -66,7 +66,6 @@ export const OptionsModal = ({
         spanish: spanishTrans,
       });
     }
-    console.log({ wordsList });
     onChangeWordsList(wordsList);
     setSelectedLearningOption(LearningOption.NEW);
     setIsOpen(false);
@@ -82,7 +81,6 @@ export const OptionsModal = ({
 
   const saveCustomList = () => {
     try {
-      console.log({ wordsInputText });
       const allWords = wordsInputText.split("\n");
       const finalWordsList: Word[] = [];
       for (const word of allWords) {
@@ -121,12 +119,9 @@ export const OptionsModal = ({
   };
 
   const removePracticedWord = (word: Word) => {
-    console.log({ practiceWords });
     const wordIndex = practiceWords.findIndex(
       (w: Word) => w.english === word.english
     );
-    console.log({ wordIndex });
-    // const newList = practiceWords.slice(wordIndex, 1);
     const newList = [
       ...practiceWords.slice(0, wordIndex),
       ...practiceWords.slice(wordIndex + 1),
@@ -157,7 +152,7 @@ export const OptionsModal = ({
               isSelecteed={selectedOption === LearningOption.NEW}
               reactIcon={GiPerspectiveDiceSixFacesRandom}
               setSelectedOption={setSelectedOption}
-              text="New Words"
+              text="New"
             />
             <OptionItem
               optionType={LearningOption.PRACTICE}

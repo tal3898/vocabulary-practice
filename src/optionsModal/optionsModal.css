@@ -22,26 +22,6 @@
   margin-bottom: 15px;
 }
 
-.specificPracticeOption {
-  height: 50px;
-  width: 100px;
-  background-color: rgb(211, 211, 211);
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.optionIcon {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.optionName {
-  margin: auto;
-}
-
 .practicedWordsList {
   /* background-color: #ff5858; */
   height: 100%;

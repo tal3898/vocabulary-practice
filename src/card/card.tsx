@@ -35,12 +35,10 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [isWordSaved, setIsWordSaved] = useState(false);
 
   useEffect(() => {
-    console.log("list changed");
     setCurrentWord(wordsList[0]);
   }, [wordsList]);
 
   const { speak, voices } = useSpeechSynthesis();
-  // console.log({ voices });
   const spanishVoice = voices.find((v: any) => v.lang === "es-ES");
 
   const originalWord = translateFromEnglish
@@ -54,7 +52,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const translationLanguage = translateFromEnglish ? "Spanish" : "English";
 
   useEffect(() => {
-    console.log("d");
     if (fromLanguage === OriginalLanguage.ENGLISH) {
       setTranslateFromEnglish(true);
     } else if (fromLanguage === OriginalLanguage.SPANISH) {
@@ -78,7 +75,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const changeToNextWord = () => {
     let isNextWordSpanish = fromLanguage === OriginalLanguage.SPANISH;
     if (fromLanguage === OriginalLanguage.RANDOM) {
-      console.log("changins");
       const isEnglish = getRandomOriginalLanguage();
       isNextWordSpanish = !isEnglish;
       setTranslateFromEnglish(isEnglish);
@@ -99,7 +95,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
 
     const randomWord = randomWords(1)[0];
     const text = await translate(randomWord, "es");
-    console.log({ randomWord, text });
 
     if (translateFromEnglish && isSoundOn) {
       speak({ text: translationWord, voice: spanishVoice });
