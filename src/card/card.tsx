@@ -90,11 +90,8 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     }
   };
 
-  const revealTranslation = async () => {
+  const revealTranslation = () => {
     setIsTranslationHidden(false);
-
-    const randomWord = randomWords(1)[0];
-    const text = await translate(randomWord, "es");
 
     if (translateFromEnglish && isSoundOn) {
       speak({ text: translationWord, voice: spanishVoice });

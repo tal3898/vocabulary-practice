@@ -1,15 +1,12 @@
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import React, { useState } from "react";
-import { CiPlay1 } from "react-icons/ci";
 import { IoMdSettings } from "react-icons/io";
+import translate from "translate";
 import "./App.css";
 import Card from "./card/card";
+import { LearningOption } from "./models/learningOption";
 import { OriginalLanguage } from "./models/originalLanguage";
 import { Word } from "./models/word";
-import translate from "translate";
 import { OptionsModal } from "./optionsModal/optionsModal";
-import { LearningOption } from "./models/learningOption";
 
 const stub = [
   {

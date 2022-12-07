@@ -25,7 +25,6 @@ const style = {
   width: "min(70%, 550px)",
   height: "min(70%, 400px)",
   bgcolor: "background.paper",
-  // border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -98,6 +97,10 @@ export const OptionsModal = ({
         }
       }
 
+      // arab stuff
+      if (hasError) {
+        console.log("error");
+      }
       onChangeWordsList(finalWordsList);
       setSelectedLearningOption(LearningOption.CUSTOM);
       setIsOpen(false);
