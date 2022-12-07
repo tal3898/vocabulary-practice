@@ -151,7 +151,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           size={28}
           onClick={changeToNextWord}
         />
-        {selectedLearningOption === LearningOption.NEW && !isWordSaved && (
+        {selectedLearningOption !== LearningOption.PRACTICE && !isWordSaved && (
           <div className="addToPracticeAction" onClick={addNewWordToPractice}>
             <AiFillPlusCircle size={26} />
           </div>
