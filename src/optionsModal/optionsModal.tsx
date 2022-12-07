@@ -177,17 +177,17 @@ export const OptionsModal = ({
           <div style={{ display: "flex", height: "74%" }}>
             {selectedOption === LearningOption.CUSTOM && (
               <div style={{ width: "100%" }}>
-                <div style={{ marginBottom: 5, fontSize: 20 }}>
+                <div style={{ marginBottom: 15, fontSize: 20 }}>
                   List the words to practice
                 </div>
-                <div
+                {/* <div
                   style={{ visibility: hasError ? "visible" : "hidden" }}
                   className="errorText"
                 >
                   Error: Not valid format
-                </div>
+                </div> */}
                 <div
-                  style={{ width: "100%", height: "10rem", paddingRight: 10 }}
+                  style={{ width: "100%", height: "15rem", paddingRight: 10 }}
                 >
                   <textarea
                     value={wordsInputText}
