@@ -46,13 +46,7 @@ export const OptionsModal = ({
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   // const randomEnglishWords;
   const practiceWords = localStorage.getItem("practiceWords") ?? [];
-  console.log({ practiceWords });
   translate.engine = "google";
-
-  const saveOptions = () => {
-    saveRandomWlist();
-    // if (LearningOption === LearningOption.CUSTOM) {}
-  };
 
   const saveRandomWlist = async () => {
     const randomWordsToLearn = randomWords(5);
@@ -98,6 +92,17 @@ export const OptionsModal = ({
     }
   };
 
+  const learningHandlers = {
+    [LearningOption.CUSTOM]: saveCustomList,
+    [LearningOption.NEW]: saveRandomWlist,
+    [LearningOption.PRACTICE]: saveCustomList,
+  };
+
+  const saveOptions = async () => {
+    const learningOptionHandler = learningHandlers[selectedOption];
+    await learningOptionHandler();
+  };
+
   const onClose = () => {
     setSelectedOption(selectedLearningOption);
     setIsOpen(false);
@@ -106,7 +111,7 @@ export const OptionsModal = ({
   return (
     <Modal
       open={open}
-      onClose={() => setIsOpen(false)}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
