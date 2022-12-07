@@ -4,6 +4,10 @@
   margin-top: 25px;
   display: flex;
   flex-direction: row-reverse;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  margin: 0px 10px 10px 0px;
 }
 
 .errorText {
@@ -15,6 +19,7 @@
 .practiceOptions {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 .specificPracticeOption {

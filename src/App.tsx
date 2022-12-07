@@ -9,6 +9,7 @@ import { OriginalLanguage } from "./models/originalLanguage";
 import { Word } from "./models/word";
 import translate from "translate";
 import { OptionsModal } from "./optionsModal/optionsModal";
+import { LearningOption } from "./models/learningOption";
 
 const stub = [
   {
@@ -29,6 +30,9 @@ function App() {
   const [open, setOpen] = React.useState(false);
   const [wordsList, setWordsList] = useState<Word[]>(stub);
   const [fromLanguage, setFromLanguage] = useState(OriginalLanguage.ENGLISH);
+  const [selectedLearningOption, setSelectedLearningOption] = useState(
+    LearningOption.NEW
+  );
 
   translate.engine = "google";
 
@@ -61,6 +65,8 @@ function App() {
       </div>
 
       <OptionsModal
+        selectedLearningOption={selectedLearningOption}
+        setSelectedLearningOption={setSelectedLearningOption}
         onChangeWordsList={setWordsList}
         open={open}
         setIsOpen={setOpen}
