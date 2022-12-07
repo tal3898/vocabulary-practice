@@ -1,18 +1,21 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import React, { useState } from "react";
-import { CiPlay1 } from "react-icons/ci";
-import translate from "translate";
-import "./optionsModal.css";
-import { Word } from "../models/word";
-import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
-import { AiOutlineSave } from "react-icons/ai";
-import { GrUserWorker } from "react-icons/gr";
-import { FaEdit } from "react-icons/fa";
-import { LearningOption } from "../models/learningOption";
-import { OptionItem } from "./optionItem/OptionItem";
+import { useState } from "react";
+import { CgRemove } from "react-icons/cg";
 import randomWords from "random-words";
-import { getPracticeWords } from "../utils/practiceLocalStorage";
+import { AiOutlineSave } from "react-icons/ai";
+import { FaEdit } from "react-icons/fa";
+import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import { GrUserWorker } from "react-icons/gr";
+import translate from "translate";
+import { LearningOption } from "../models/learningOption";
+import { Word } from "../models/word";
+import {
+  getPracticeWords,
+  savePracticeWords,
+} from "../utils/practiceLocalStorage";
+import { OptionItem } from "./optionItem/OptionItem";
+import "./optionsModal.css";
 
 const style = {
   position: "absolute" as "absolute",
@@ -46,7 +49,7 @@ export const OptionsModal = ({
   const [hasError, setHasError] = useState(false);
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   // const randomEnglishWords;
-  const practiceWords = getPracticeWords();
+  const [practiceWords, setPracticeWords] = useState(getPracticeWords());
   translate.engine = "google";
 
   const saveRandomList = async () => {
@@ -111,6 +114,21 @@ export const OptionsModal = ({
   const saveOptions = async () => {
     const learningOptionHandler = learningHandlers[selectedOption];
     await learningOptionHandler();
+  };
+
+  const removePracticedWord = (word: Word) => {
+    console.log({ practiceWords });
+    const wordIndex = practiceWords.findIndex(
+      (w: Word) => w.english === word.english
+    );
+    console.log({ wordIndex });
+    // const newList = practiceWords.slice(wordIndex, 1);
+    const newList = [
+      ...practiceWords.slice(0, wordIndex),
+      ...practiceWords.slice(wordIndex + 1),
+    ];
+    savePracticeWords(newList);
+    setPracticeWords(newList);
   };
 
   const onClose = () => {
@@ -186,7 +204,13 @@ export const OptionsModal = ({
               practiceWords.length > 0 && (
                 <div className="practicedWordsList">
                   {practiceWords.map((item: Word) => (
-                    <div className="practicedWordItem">
+                    <div key={item.english} className="practicedWordItem">
+                      <div
+                        className="practiceRemoveButton"
+                        onClick={() => removePracticedWord(item)}
+                      >
+                        <CgRemove />
+                      </div>
                       <div className="practicedEnglish">{item.english}</div>
                       <div className="practicedSpanish">{item.spanish}</div>
                     </div>

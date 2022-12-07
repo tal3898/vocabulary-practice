@@ -61,3 +61,10 @@
 .practicedSpanish {
   padding: 10px;
 }
+
+.practiceRemoveButton {
+  padding-top: 13px;
+  margin-right: 10px;
+  color: #f44336;
+  cursor: pointer;
+}
