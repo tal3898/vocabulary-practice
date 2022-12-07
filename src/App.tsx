@@ -13,14 +13,6 @@ const stub = [
     english: "hello",
     spanish: "hola",
   },
-  {
-    english: "have",
-    spanish: "tener",
-  },
-  {
-    english: "how",
-    spanish: "como",
-  },
 ];
 
 function App() {
