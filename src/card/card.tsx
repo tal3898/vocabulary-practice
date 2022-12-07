@@ -27,6 +27,11 @@ function Card({ fromLanguage, wordsList }: Props) {
   );
   const [isSoundOn, setIsSoundOn] = useState(false);
 
+  useEffect(() => {
+    console.log("list changed");
+    setCurrentWord(wordsList[0]);
+  }, [wordsList]);
+
   const { speak, voices } = useSpeechSynthesis();
   // console.log({ voices });
   const spanishVoice = voices.find((v: any) => v.lang === "es-ES");
