@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CgRemove } from "react-icons/cg";
 import randomWords from "random-words";
 import { AiOutlineSave } from "react-icons/ai";
@@ -51,6 +51,10 @@ export const OptionsModal = ({
   // const randomEnglishWords;
   const [practiceWords, setPracticeWords] = useState(getPracticeWords());
   translate.engine = "google";
+
+  useEffect(() => {
+    setPracticeWords(getPracticeWords());
+  }, [open]);
 
   const saveRandomList = async () => {
     const randomWordsToLearn = randomWords(50);
