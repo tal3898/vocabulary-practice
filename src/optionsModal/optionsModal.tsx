@@ -60,6 +60,7 @@ export const OptionsModal = ({
     }
     console.log({ wordsList });
     onChangeWordsList(wordsList);
+    setSelectedLearningOption(LearningOption.NEW);
     setIsOpen(false);
     setHasError(false);
   };
@@ -85,6 +86,7 @@ export const OptionsModal = ({
       }
 
       onChangeWordsList(finalWordsList);
+      setSelectedLearningOption(LearningOption.CUSTOM);
       setIsOpen(false);
       setHasError(false);
     } catch (e) {

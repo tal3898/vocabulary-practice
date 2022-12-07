@@ -61,7 +61,11 @@ function App() {
         </div>
       </div>
       <div className="content" style={{ display: "flex", height: "100%" }}>
-        <Card fromLanguage={fromLanguage} wordsList={wordsList} />
+        <Card
+          selectedLearningOption={selectedLearningOption}
+          fromLanguage={fromLanguage}
+          wordsList={wordsList}
+        />
       </div>
 
       <OptionsModal

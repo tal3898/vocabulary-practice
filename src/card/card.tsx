@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiFillPlusCircle } from "react-icons/ai";
 import { GiSoundOn, GiSoundOff } from "react-icons/gi";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
@@ -7,10 +7,12 @@ import "./card.css";
 import { useSpeechSynthesis } from "react-speech-kit";
 import translate from "translate";
 import randomWords from "random-words";
+import { LearningOption } from "../models/learningOption";
 
 interface Props {
   wordsList: Word[];
   fromLanguage: OriginalLanguage;
+  selectedLearningOption: LearningOption;
 }
 
 const defaultWord: Word = { english: "...", spanish: "..." };
@@ -19,7 +21,8 @@ function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-function Card({ fromLanguage, wordsList }: Props) {
+function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
+  console.log({ selectedLearningOption });
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);
   const [currentWord, setCurrentWord] = useState(wordsList[0] ?? defaultWord);
   const [translateFromEnglish, setTranslateFromEnglish] = useState(
@@ -129,11 +132,18 @@ function Card({ fromLanguage, wordsList }: Props) {
           reveal
         </p>
       )}
-      <AiOutlineArrowLeft
-        style={{ cursor: "pointer" }}
-        size={20}
-        onClick={changeToNextWord}
-      />
+      <div className="cardActions">
+        <AiOutlineArrowLeft
+          style={{ cursor: "pointer" }}
+          size={26}
+          onClick={changeToNextWord}
+        />
+        {selectedLearningOption === LearningOption.NEW && (
+          <div className="addToPracticeAction">
+            <AiFillPlusCircle size={26} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
