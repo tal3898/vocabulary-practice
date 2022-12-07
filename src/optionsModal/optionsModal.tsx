@@ -8,6 +8,8 @@ import { Word } from "../models/word";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { GrUserWorker } from "react-icons/gr";
 import { FaEdit } from "react-icons/fa";
+import { LearningOption } from "../models/learningOption";
+import { OptionItem } from "./optionItem/OptionItem";
 
 const style = {
   position: "absolute" as "absolute",
@@ -30,6 +32,7 @@ interface Props {
 export const OptionsModal = ({ onChangeWordsList, open, setIsOpen }: Props) => {
   const [wordsInputText, setWordsInputText] = useState("");
   const [hasError, setHasError] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(LearningOption.NEW);
 
   translate.engine = "google";
 
@@ -70,18 +73,24 @@ export const OptionsModal = ({ onChangeWordsList, open, setIsOpen }: Props) => {
     >
       <Box sx={style}>
         <div className="practiceOptions">
-          <div className="specificPracticeOption">
-            <GiPerspectiveDiceSixFacesRandom size={40} className="optionIcon" />
-            <div className="optionName">New Words</div>
-          </div>
-          <div className="specificPracticeOption">
-            <GrUserWorker size={40} className="optionIcon" />
-            <div className="optionName">Practice</div>
-          </div>
-          <div className="specificPracticeOption">
-            <FaEdit size={40} className="optionIcon" />
-            <div className="optionName">Custom</div>
-          </div>
+          <OptionItem
+            isSelecteed={selectedOption === LearningOption.NEW}
+            reactIcon={GiPerspectiveDiceSixFacesRandom}
+            setSelectedOption={setSelectedOption}
+            text="New Wordss"
+          />
+          <OptionItem
+            isSelecteed={selectedOption === LearningOption.PRACTICE}
+            reactIcon={GrUserWorker}
+            setSelectedOption={setSelectedOption}
+            text="Practice"
+          />
+          <OptionItem
+            isSelecteed={selectedOption === LearningOption.CUSTOM}
+            reactIcon={FaEdit}
+            setSelectedOption={setSelectedOption}
+            text="Custom"
+          />
         </div>
         <div style={{ marginBottom: 5, fontSize: 20 }}>
           List the words to practice
