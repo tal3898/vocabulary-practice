@@ -12,6 +12,7 @@ import { FaEdit } from "react-icons/fa";
 import { LearningOption } from "../models/learningOption";
 import { OptionItem } from "./optionItem/OptionItem";
 import randomWords from "random-words";
+import { getPracticeWords } from "../utils/practiceLocalStorage";
 
 const style = {
   position: "absolute" as "absolute",
@@ -21,7 +22,7 @@ const style = {
   width: "min(70%, 550px)",
   height: "min(70%, 400px)",
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  // border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -45,11 +46,11 @@ export const OptionsModal = ({
   const [hasError, setHasError] = useState(false);
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   // const randomEnglishWords;
-  const practiceWords = localStorage.getItem("practiceWords") ?? [];
+  const practiceWords = getPracticeWords();
   translate.engine = "google";
 
   const saveRandomWlist = async () => {
-    const randomWordsToLearn = randomWords(5);
+    const randomWordsToLearn = randomWords(50);
     const wordsList: Word[] = [];
     for (const word of randomWordsToLearn) {
       const spanishTrans = await translate(word, "es");
@@ -144,7 +145,7 @@ export const OptionsModal = ({
               text="Custom"
             />
           </div>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", height: "74%" }}>
             {selectedOption === LearningOption.CUSTOM && (
               <div style={{ width: "100%" }}>
                 <div style={{ marginBottom: 5, fontSize: 20 }}>
@@ -172,6 +173,17 @@ export const OptionsModal = ({
               practiceWords.length === 0 && (
                 <div style={{ margin: "auto" }}>
                   You didn't learn new Words to practiced with
+                </div>
+              )}
+            {selectedOption === LearningOption.PRACTICE &&
+              practiceWords.length > 0 && (
+                <div className="practicedWordsList">
+                  {practiceWords.map((item: Word) => (
+                    <div className="practicedWordItem">
+                      <div className="practicedEnglish">{item.english}</div>
+                      <div className="practicedSpanish">{item.spanish}</div>
+                    </div>
+                  ))}
                 </div>
               )}
           </div>

@@ -10,14 +10,13 @@
 }
 
 .listButton {
-  background-color: white,;
-  cursor: pointer; 
+  background-color: white;
+  cursor: pointer;
   width: fit-content;
-  height: fit-content; 
+  height: fit-content;
   border-radius: 10px;
   margin: 15px 0px 0px 15px;
 }
-
 
 .originalLangBtn {
   cursor: pointer;
@@ -29,9 +28,9 @@
 
 .applyListButton {
   cursor: pointer;
-  color: rgb(106, 106, 106); 
-  margin-top: 25px; 
-  display: flex; 
+  color: rgb(106, 106, 106);
+  margin-top: 25px;
+  display: flex;
   flex-direction: row-reverse;
 }
 
@@ -74,4 +73,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
