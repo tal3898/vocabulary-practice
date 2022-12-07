@@ -83,9 +83,11 @@ function Card({ fromLanguage, wordsList }: Props) {
 
   const revealTranslation = async () => {
     setIsTranslationHidden(false);
+
     const randomWord = randomWords(1)[0];
     const text = await translate(randomWord, "es");
     console.log({ randomWord, text });
+
     if (translateFromEnglish && isSoundOn) {
       speak({ text: translationWord, voice: spanishVoice });
     }

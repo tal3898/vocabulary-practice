@@ -11,6 +11,7 @@ import { GrUserWorker } from "react-icons/gr";
 import { FaEdit } from "react-icons/fa";
 import { LearningOption } from "../models/learningOption";
 import { OptionItem } from "./optionItem/OptionItem";
+import randomWords from "random-words";
 
 const style = {
   position: "absolute" as "absolute",
@@ -48,7 +49,28 @@ export const OptionsModal = ({
   console.log({ practiceWords });
   translate.engine = "google";
 
-  const changeWordsList = () => {
+  const saveOptions = () => {
+    saveRandomWlist();
+    // if (LearningOption === LearningOption.CUSTOM) {}
+  };
+
+  const saveRandomWlist = async () => {
+    const randomWordsToLearn = randomWords(5);
+    const wordsList: Word[] = [];
+    for (const word of randomWordsToLearn) {
+      const spanishTrans = await translate(word, "es");
+      wordsList.push({
+        english: word,
+        spanish: spanishTrans,
+      });
+    }
+    console.log({ wordsList });
+    onChangeWordsList(wordsList);
+    setIsOpen(false);
+    setHasError(false);
+  };
+
+  const saveCustomList = () => {
     try {
       console.log({ wordsInputText });
       const allWords = wordsInputText.split("\n");
@@ -148,7 +170,7 @@ export const OptionsModal = ({
           </div>
         </div>
         <div className="applyListButton">
-          <AiOutlineSave onClick={changeWordsList} size={30} />
+          <AiOutlineSave onClick={saveOptions} size={30} />
         </div>
       </Box>
     </Modal>
