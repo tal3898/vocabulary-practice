@@ -60,6 +60,7 @@ export const OptionsModal = ({
 
   const saveRandomList = async () => {
     setIsLoading(true);
+    setErrorText(undefined);
     const randomWordsToLearn = randomWords(NEW_WORDS_GENERATOR_SIZE);
     const wordsList: Word[] = [];
     for (const word of randomWordsToLearn) {
