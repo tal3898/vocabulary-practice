@@ -17,9 +17,13 @@ interface Props {
   selectedLearningOption: LearningOption;
 }
 
-function getRandomInt(max: number) {
+const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * max);
-}
+};
+
+const getShuffledList = (list: any[]) => {
+  return [...list].sort(() => Math.random() - 0.5);
+};
 
 function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);
@@ -32,7 +36,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [shuffledWords, setShuffledWords] = useState(wordsList);
 
   useEffect(() => {
-    const reshuffledWords = [...wordsList].sort(() => Math.random() - 0.5);
+    const reshuffledWords = getShuffledList(wordsList);
     setShuffledWords(reshuffledWords);
     setCurrentWordIndex(0);
   }, [wordsList]);
@@ -75,13 +79,19 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     }
 
     const nextWordIndex = (currentWordIndex + 1) % wordsList.length;
+    let nextWord = shuffledWords[nextWordIndex];
+    if (nextWordIndex === 0) {
+      const reshuffledList = getShuffledList(wordsList);
+      setShuffledWords(reshuffledList);
+      nextWord = reshuffledList[0];
+    }
     setCurrentWordIndex(nextWordIndex);
     setIsTranslationHidden(true);
     setIsWordSaved(false);
 
     if (isNextWordSpanish && isSoundOn) {
       speak({
-        text: shuffledWords[nextWordIndex].spanish,
+        text: nextWord.spanish,
         voice: spanishVoice,
       });
     }
