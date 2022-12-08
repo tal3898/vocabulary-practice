@@ -16,6 +16,7 @@ import {
 } from "../utils/practiceLocalStorage";
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const style = {
   position: "absolute" as "absolute",
@@ -47,7 +48,7 @@ export const OptionsModal = ({
   const [wordsInputText, setWordsInputText] = useState("");
   const [errorText, setErrorText] = useState<undefined | string>();
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
-  // const randomEnglishWords;
+  const [isLoading, setIsLoading] = useState(false);
   const [practiceWords, setPracticeWords] = useState(getPracticeWords());
   translate.engine = "google";
 
@@ -56,6 +57,7 @@ export const OptionsModal = ({
   }, [open]);
 
   const saveRandomList = async () => {
+    setIsLoading(true);
     const randomWordsToLearn = randomWords(50);
     const wordsList: Word[] = [];
     for (const word of randomWordsToLearn) {
@@ -69,6 +71,7 @@ export const OptionsModal = ({
     setSelectedLearningOption(LearningOption.NEW);
     setIsOpen(false);
     setErrorText(undefined);
+    setIsLoading(false);
   };
 
   const savePracticedWords = async () => {
@@ -225,7 +228,8 @@ export const OptionsModal = ({
           </div>
         </div>
         <div className="applyListButton">
-          <AiOutlineSave onClick={saveOptions} size={30} />
+          {isLoading && <ClipLoader size={30} color="#36d7b7" />}
+          {!isLoading && <AiOutlineSave onClick={saveOptions} size={30} />}
         </div>
         <div
           style={{ visibility: errorText !== undefined ? "visible" : "hidden" }}
