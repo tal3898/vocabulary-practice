@@ -107,7 +107,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
 
   const addNewWordToPractice = () => {
     const practiceWords = getPracticeWords();
-    practiceWords.push(currentWordIndex);
+    practiceWords.push(shuffledWords[currentWordIndex]);
     savePracticeWords(practiceWords);
     setIsWordSaved(true);
   };
