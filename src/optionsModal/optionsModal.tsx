@@ -202,6 +202,9 @@ export const OptionsModal = ({
                   You didn't learn new Words to practice with
                 </div>
               )}
+            {selectedOption === LearningOption.NEW && (
+              <div style={{ margin: "auto" }}>Learn New Words!</div>
+            )}
             {selectedOption === LearningOption.PRACTICE &&
               practiceWords.length > 0 && (
                 <div className="practicedWordsList">
