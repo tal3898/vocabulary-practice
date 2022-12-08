@@ -45,7 +45,7 @@ export const OptionsModal = ({
   setIsOpen,
 }: Props) => {
   const [wordsInputText, setWordsInputText] = useState("");
-  const [hasError, setHasError] = useState(false);
+  const [errorText, setErrorText] = useState<undefined | string>();
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   // const randomEnglishWords;
   const [practiceWords, setPracticeWords] = useState(getPracticeWords());
@@ -68,14 +68,18 @@ export const OptionsModal = ({
     onChangeWordsList(wordsList);
     setSelectedLearningOption(LearningOption.NEW);
     setIsOpen(false);
-    setHasError(false);
+    setErrorText(undefined);
   };
 
   const savePracticedWords = async () => {
-    onChangeWordsList(practiceWords);
-    setSelectedLearningOption(LearningOption.PRACTICE);
-    setIsOpen(false);
-    setHasError(false);
+    if (practiceWords.length > 0) {
+      onChangeWordsList(practiceWords);
+      setSelectedLearningOption(LearningOption.PRACTICE);
+      setIsOpen(false);
+      setErrorText(undefined);
+    } else {
+      setErrorText("Words list is empty");
+    }
   };
 
   const saveCustomList = () => {
@@ -97,16 +101,16 @@ export const OptionsModal = ({
         }
       }
 
-      // arab stuff
-      if (hasError) {
-        console.log("error");
+      if (finalWordsList.length === 0) {
+        setErrorText("Not valid format");
+      } else {
+        onChangeWordsList(finalWordsList);
+        setSelectedLearningOption(LearningOption.CUSTOM);
+        setIsOpen(false);
+        setErrorText(undefined);
       }
-      onChangeWordsList(finalWordsList);
-      setSelectedLearningOption(LearningOption.CUSTOM);
-      setIsOpen(false);
-      setHasError(false);
     } catch (e) {
-      setHasError(true);
+      setErrorText("Error while reading text. Try again later");
     }
   };
 
@@ -136,6 +140,7 @@ export const OptionsModal = ({
   const onClose = () => {
     setSelectedOption(selectedLearningOption);
     setIsOpen(false);
+    setErrorText(undefined);
   };
 
   return (
@@ -178,12 +183,7 @@ export const OptionsModal = ({
                 <div style={{ marginBottom: 15, fontSize: 20 }}>
                   List the words to practice
                 </div>
-                {/* <div
-                  style={{ visibility: hasError ? "visible" : "hidden" }}
-                  className="errorText"
-                >
-                  Error: Not valid format
-                </div> */}
+
                 <div
                   style={{ width: "100%", height: "15rem", paddingRight: 10 }}
                 >
@@ -223,6 +223,12 @@ export const OptionsModal = ({
         </div>
         <div className="applyListButton">
           <AiOutlineSave onClick={saveOptions} size={30} />
+        </div>
+        <div
+          style={{ visibility: errorText !== undefined ? "visible" : "hidden" }}
+          className="errorText"
+        >
+          {errorText}
         </div>
       </Box>
     </Modal>
