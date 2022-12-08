@@ -50,7 +50,9 @@ export const OptionsModal = ({
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
   const [practiceWords, setPracticeWords] = useState(getPracticeWords());
+
   translate.engine = "google";
+  const NEW_WORDS_GENERATOR_SIZE = 70;
 
   useEffect(() => {
     setPracticeWords(getPracticeWords());
@@ -58,7 +60,7 @@ export const OptionsModal = ({
 
   const saveRandomList = async () => {
     setIsLoading(true);
-    const randomWordsToLearn = randomWords(50);
+    const randomWordsToLearn = randomWords(NEW_WORDS_GENERATOR_SIZE);
     const wordsList: Word[] = [];
     for (const word of randomWordsToLearn) {
       const spanishTrans = await translate(word, "es");
