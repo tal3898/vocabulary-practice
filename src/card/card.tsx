@@ -89,7 +89,10 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     setIsTranslationHidden(true);
     setIsWordSaved(false);
 
-    if (isNextWordSpanish && isSoundOn) {
+    if (
+      isSoundOn &&
+      (isNextWordSpanish || selectedLearningOption === LearningOption.NEW)
+    ) {
       speak({
         text: nextWord.spanish,
         voice: spanishVoice,
