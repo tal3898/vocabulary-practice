@@ -17,34 +17,35 @@ interface Props {
   selectedLearningOption: LearningOption;
 }
 
-const defaultWord: Word = { english: "...", spanish: "..." };
-
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
 function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);
-  const [currentWord, setCurrentWord] = useState(wordsList[0] ?? defaultWord);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [translateFromEnglish, setTranslateFromEnglish] = useState(
     fromLanguage === OriginalLanguage.ENGLISH
   );
   const [isSoundOn, setIsSoundOn] = useState(false);
   const [isWordSaved, setIsWordSaved] = useState(false);
+  const [shuffledWords, setShuffledWords] = useState(wordsList);
 
   useEffect(() => {
-    setCurrentWord(wordsList[0]);
+    const reshuffledWords = [...wordsList].sort(() => Math.random() - 0.5);
+    setShuffledWords(reshuffledWords);
+    setCurrentWordIndex(0);
   }, [wordsList]);
 
   const { speak, voices } = useSpeechSynthesis();
   const spanishVoice = voices.find((v: any) => v.lang === "es-ES");
 
   const originalWord = translateFromEnglish
-    ? currentWord.english
-    : currentWord.spanish;
+    ? shuffledWords[currentWordIndex].english
+    : shuffledWords[currentWordIndex].spanish;
   const translationWord = translateFromEnglish
-    ? currentWord.spanish
-    : currentWord.english;
+    ? shuffledWords[currentWordIndex].spanish
+    : shuffledWords[currentWordIndex].english;
 
   const originalLanguage = translateFromEnglish ? "English" : "Spanish";
   const translationLanguage = translateFromEnglish ? "Spanish" : "English";
@@ -60,11 +61,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     }
   }, [fromLanguage]);
 
-  const getRandomWord = () => {
-    const randomIndex = getRandomInt(wordsList.length);
-    return wordsList[randomIndex];
-  };
-
   const getRandomOriginalLanguage = () => {
     const randomBinaryNumber = getRandomInt(2);
     return randomBinaryNumber === 1;
@@ -78,13 +74,16 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       setTranslateFromEnglish(isEnglish);
     }
 
-    const randomWord = getRandomWord();
-    setCurrentWord(randomWord);
+    const nextWordIndex = (currentWordIndex + 1) % wordsList.length;
+    setCurrentWordIndex(nextWordIndex);
     setIsTranslationHidden(true);
     setIsWordSaved(false);
 
     if (isNextWordSpanish && isSoundOn) {
-      speak({ text: randomWord.spanish, voice: spanishVoice });
+      speak({
+        text: shuffledWords[nextWordIndex].spanish,
+        voice: spanishVoice,
+      });
     }
   };
 
@@ -98,7 +97,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
 
   const addNewWordToPractice = () => {
     const practiceWords = getPracticeWords();
-    practiceWords.push(currentWord);
+    practiceWords.push(currentWordIndex);
     savePracticeWords(practiceWords);
     setIsWordSaved(true);
   };
