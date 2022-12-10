@@ -2,7 +2,7 @@ import { Word } from "../models/word";
 
 const practiceKey = "practiceWords";
 
-export const getPracticeWords = () => {
+export const getPracticeWords = (): Word[] => {
   return JSON.parse(localStorage.getItem(practiceKey) ?? "[]");
 };
 

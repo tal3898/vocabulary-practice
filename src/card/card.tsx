@@ -34,6 +34,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [isSoundOn, setIsSoundOn] = useState(false);
   const [isWordSaved, setIsWordSaved] = useState(false);
   const [shuffledWords, setShuffledWords] = useState(wordsList);
+  const practicedWords = getPracticeWords();
 
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
@@ -153,7 +154,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           size={28}
           onClick={changeToNextWord}
         />
-        {selectedLearningOption !== LearningOption.PRACTICE && !isWordSaved && (
+        {selectedLearningOption !== LearningOption.PRACTICE && !isWordSaved && !practicedWords.some((word: Word) => word.english === originalWord) && (
           <div className="addToPracticeAction" onClick={addNewWordToPractice}>
             <AiFillPlusCircle size={26} />
           </div>
