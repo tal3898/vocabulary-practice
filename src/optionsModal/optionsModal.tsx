@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import { CgRemove } from "react-icons/cg";
 import randomWords from "random-words";
-import { AiOutlineSave } from "react-icons/ai";
+import { AiOutlineSave, AiOutlinePlus } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { GrUserWorker } from "react-icons/gr";
@@ -88,29 +88,35 @@ export const OptionsModal = ({
     }
   };
 
+  const getWordsListFromInput = () => {
+    const allWords = wordsInputText.split("\n");
+    const finalWordsList: Word[] = [];
+    for (const word of allWords) {
+      const wordParts = word.split(" - ");
+      const spanishTranslation = wordParts[0];
+      const englishTranslation = wordParts[1];
+      if (
+        spanishTranslation !== undefined &&
+        englishTranslation !== undefined
+      ) {
+        finalWordsList.push({
+          english: englishTranslation,
+          spanish: spanishTranslation,
+        });
+      }
+    }
+
+    return finalWordsList;
+  }
+
   const saveCustomList = () => {
     try {
-      const allWords = wordsInputText.split("\n");
-      const finalWordsList: Word[] = [];
-      for (const word of allWords) {
-        const wordParts = word.split(" - ");
-        const spanishTranslation = wordParts[0];
-        const englishTranslation = wordParts[1];
-        if (
-          spanishTranslation !== undefined &&
-          englishTranslation !== undefined
-        ) {
-          finalWordsList.push({
-            english: englishTranslation,
-            spanish: spanishTranslation,
-          });
-        }
-      }
+      const clientWordsList: Word[] = getWordsListFromInput();
 
-      if (finalWordsList.length === 0) {
+      if (clientWordsList.length === 0) {
         setErrorText("Not valid format");
       } else {
-        onChangeWordsList(finalWordsList);
+        onChangeWordsList(clientWordsList);
         setSelectedLearningOption(LearningOption.CUSTOM);
         setIsOpen(false);
         setErrorText(undefined);
@@ -142,6 +148,19 @@ export const OptionsModal = ({
     savePracticeWords(newList);
     setPracticeWords(newList);
   };
+
+  const addCustomWordsToPractice = () => {
+    const clientWordsList: Word[] = getWordsListFromInput();
+    const newPracticedWordsList = [...practiceWords];
+    for (const newWord of clientWordsList) {
+      if (!newPracticedWordsList.some((word: Word) => word.english === newWord.english)) {
+        newPracticedWordsList.push(newWord)
+      }
+    }
+
+    savePracticeWords(newPracticedWordsList);
+    setPracticeWords(newPracticedWordsList);
+  }
 
   const onClose = () => {
     setSelectedOption(selectedLearningOption);
@@ -234,6 +253,12 @@ export const OptionsModal = ({
           {isLoading && <ClipLoader size={30} color="#36d7b7" />}
           {!isLoading && <AiOutlineSave onClick={saveOptions} size={30} />}
         </div>
+        {selectedOption === LearningOption.CUSTOM && (
+          <div className="saveToPracticeButton" onClick={addCustomWordsToPractice}>
+            <AiOutlinePlus size={30} />
+           </div>
+        )}
+        
         <div
           style={{ visibility: errorText !== undefined ? "visible" : "hidden" }}
           className="errorText"
