@@ -10,13 +10,25 @@
   margin: 0px 10px 10px 0px;
 }
 
+.saveToPracticeButton {
+  cursor: pointer;
+  color: rgb(106, 106, 106);
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row-reverse;
+  right: 50px;
+  bottom: 0;
+  position: absolute;
+  margin: 0px 10px 10px 0px;
+}
+
 .errorText {
   padding-top: 3px;
   color: #ff5858;
   margin-bottom: 10px;
   width: fit-content;
   position: absolute;
-  right: 44px;
+  left: 32px;
   bottom: 7px;
 }
 

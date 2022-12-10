@@ -143,6 +143,10 @@ export const OptionsModal = ({
     setPracticeWords(newList);
   };
 
+  const addCustomWordsToPractice = () => {
+    
+  }
+
   const onClose = () => {
     setSelectedOption(selectedLearningOption);
     setIsOpen(false);
@@ -234,6 +238,12 @@ export const OptionsModal = ({
           {isLoading && <ClipLoader size={30} color="#36d7b7" />}
           {!isLoading && <AiOutlineSave onClick={saveOptions} size={30} />}
         </div>
+        {selectedOption === LearningOption.CUSTOM && (
+          <div className="saveToPracticeButton">
+            <AiOutlineSave size={30} />
+           </div>
+        )}
+        
         <div
           style={{ visibility: errorText !== undefined ? "visible" : "hidden" }}
           className="errorText"
