@@ -258,7 +258,6 @@ export const OptionsModal = ({
             <AiOutlinePlus size={30} />
            </div>
         )}
-        
         <div
           style={{ visibility: errorText !== undefined ? "visible" : "hidden" }}
           className="errorText"
