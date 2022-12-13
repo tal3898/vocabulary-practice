@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AiFillPlusCircle, AiOutlineArrowLeft } from "react-icons/ai";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { CgRemove } from "react-icons/cg";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
@@ -34,7 +35,11 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [isSoundOn, setIsSoundOn] = useState(false);
   const [isWordSaved, setIsWordSaved] = useState(false);
   const [shuffledWords, setShuffledWords] = useState(wordsList);
-  const practicedWords = getPracticeWords();
+  const practicedWords = useMemo(() => {
+    console.log("{ practicedWords }");
+    return getPracticeWords();
+  }, []);
+  console.log({ practicedWords });
 
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
@@ -116,6 +121,15 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     setIsWordSaved(true);
   };
 
+  const removeWordFromPractice = () => {
+    const practiceWords = getPracticeWords();
+    const newPracticeList = practiceWords.filter(
+      (word: Word) => word.english !== wordsList[currentWordIndex].english
+    );
+    savePracticeWords(newPracticeList);
+    setIsWordSaved(false);
+  };
+
   return (
     <div className="card">
       <div style={{ display: "flex" }}>
@@ -154,11 +168,28 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           size={28}
           onClick={changeToNextWord}
         />
-        {selectedLearningOption !== LearningOption.PRACTICE && !isWordSaved && !practicedWords.some((word: Word) => word.english === originalWord) && (
-          <div className="addToPracticeAction" onClick={addNewWordToPractice}>
-            <AiFillPlusCircle size={26} />
-          </div>
-        )}
+        {selectedLearningOption !== LearningOption.PRACTICE &&
+          !isWordSaved &&
+          !practicedWords.some(
+            (word: Word) =>
+              word.english === shuffledWords[currentWordIndex].english
+          ) && (
+            <div className="addToPracticeAction" onClick={addNewWordToPractice}>
+              <AiFillPlusCircle size={26} />
+            </div>
+          )}
+        {isWordSaved &&
+          practicedWords.some(
+            (word: Word) =>
+              word.english === shuffledWords[currentWordIndex].english
+          ) && (
+            <div
+              className="addToPracticeAction"
+              onClick={removeWordFromPractice}
+            >
+              <CgRemove size={26} />
+            </div>
+          )}
       </div>
     </div>
   );
