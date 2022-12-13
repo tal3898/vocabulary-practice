@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import { CgRemove } from "react-icons/cg";
 import randomWords from "random-words";
-import { AiOutlineSave, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineSave, AiOutlinePlus, AiOutlineClear } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { GrUserWorker } from "react-icons/gr";
@@ -162,6 +162,11 @@ export const OptionsModal = ({
     setPracticeWords(newPracticedWordsList);
   }
 
+  const clearPracticeWordsList = () => {
+    savePracticeWords([]);
+    setPracticeWords([]);
+  }
+
   const onClose = () => {
     setSelectedOption(selectedLearningOption);
     setIsOpen(false);
@@ -254,8 +259,13 @@ export const OptionsModal = ({
           {!isLoading && <AiOutlineSave onClick={saveOptions} size={30} />}
         </div>
         {selectedOption === LearningOption.CUSTOM && (
-          <div className="saveToPracticeButton" onClick={addCustomWordsToPractice}>
+          <div className="extraActionButton" onClick={addCustomWordsToPractice}>
             <AiOutlinePlus size={30} />
+           </div>
+        )}
+        {selectedOption === LearningOption.PRACTICE && (
+          <div className="extraActionButton" onClick={clearPracticeWordsList}>
+            <AiOutlineClear size={30} />
            </div>
         )}
         <div
