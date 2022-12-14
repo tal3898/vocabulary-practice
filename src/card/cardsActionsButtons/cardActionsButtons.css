@@ -1,0 +1,9 @@
+.addToPracticeAction {
+  width: fit-content;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.cardActionsButton {
+  display: flex;
+}

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { AiFillPlusCircle, AiOutlineArrowLeft } from "react-icons/ai";
-import { CgRemove } from "react-icons/cg";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { useSpeechSynthesis } from "react-speech-kit";
@@ -12,6 +11,7 @@ import {
   setPracticeList,
 } from "../stateManagement/practiceList";
 import "./card.css";
+import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
 
 interface Props {
   wordsList: Word[];
@@ -37,7 +37,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [shuffledWords, setShuffledWords] = useState(wordsList);
   const practiceWords = useSelector(practiceListSelector);
   const dispatch = useDispatch();
-  console.log({ b: practiceWords });
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
     setShuffledWords(reshuffledWords);
@@ -160,22 +159,17 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           reveal
         </p>
       )}
+      <div style={{ display: "flex" }}>
+        <div style={{ marginLeft: "auto", marginRight: "auto" }}>
+          <CardActionsButtons word={shuffledWords[currentWordIndex]} />
+        </div>
+      </div>
       <div className="cardActions">
         <AiOutlineArrowLeft
           style={{ cursor: "pointer" }}
           size={28}
           onClick={changeToNextWord}
         />
-        {!isWordSaved && (
-          <div className="addToPracticeAction" onClick={addNewWordToPractice}>
-            <AiFillPlusCircle size={26} />
-          </div>
-        )}
-        {isWordSaved && (
-          <div className="addToPracticeAction" onClick={removeWordFromPractice}>
-            <CgRemove size={26} />
-          </div>
-        )}
       </div>
     </div>
   );

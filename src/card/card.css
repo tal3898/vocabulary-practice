@@ -5,6 +5,7 @@
   width: min(63%, 500px);
   margin: auto;
   border-radius: 10px;
+  position: relative;
   box-shadow: 4px 5px 18px 0px rgba(0, 0, 0, 0.75);
 }
 
@@ -43,13 +44,7 @@
 }
 
 .cardActions {
-  width: 53%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.addToPracticeAction {
-  width: fit-content;
-  color: #66bb6a;
-  cursor: pointer;
+  position: absolute;
+  /* margin-bottom: 10px; */
+  bottom: 8px;
 }

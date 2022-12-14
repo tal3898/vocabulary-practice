@@ -3,21 +3,23 @@ import Modal from "@mui/material/Modal";
 import randomWords from "random-words";
 import { useState } from "react";
 import { AiOutlineClear, AiOutlinePlus, AiOutlineSave } from "react-icons/ai";
-import { CgRemove } from "react-icons/cg";
+import { BiMemoryCard } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
-import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
-import { GrUserWorker } from "react-icons/gr";
+import { GiPerspectiveDiceSixFacesRandom, GiStrongMan } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import translate from "translate";
 import { LearningOption } from "../models/learningOption";
 import { Word } from "../models/word";
+import { learnedListSelector } from "../stateManagement/learnedList";
 import {
   practiceListSelector,
   setPracticeList,
 } from "../stateManagement/practiceList";
+import { LearnedList } from "./learnedList/learnedList";
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
+import { PracticeList } from "./practicedList/practiceList";
 
 const style = {
   position: "absolute" as "absolute",
@@ -50,16 +52,11 @@ export const OptionsModal = ({
   const [errorText, setErrorText] = useState<undefined | string>();
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
-  // const [practiceWords, setPracticeWords] = useState(getPracticeWords());
   const practiceWords = useSelector(practiceListSelector);
+  const learnedList = useSelector(learnedListSelector);
   const dispatch = useDispatch();
-  console.log({ aaa: practiceWords });
   translate.engine = "google";
   const NEW_WORDS_GENERATOR_SIZE = 70;
-
-  // useEffect(() => {
-  //   setPracticeWords(getPracticeWords());
-  // }, [open]);
 
   const saveRandomList = async () => {
     setIsLoading(true);
@@ -84,6 +81,17 @@ export const OptionsModal = ({
     if (practiceWords.length > 0) {
       onChangeWordsList(practiceWords);
       setSelectedLearningOption(LearningOption.PRACTICE);
+      setIsOpen(false);
+      setErrorText(undefined);
+    } else {
+      setErrorText("Words list is empty");
+    }
+  };
+
+  const saveLearnedWords = async () => {
+    if (learnedList.length > 0) {
+      onChangeWordsList(learnedList);
+      setSelectedLearningOption(LearningOption.KNOW);
       setIsOpen(false);
       setErrorText(undefined);
     } else {
@@ -133,6 +141,7 @@ export const OptionsModal = ({
     [LearningOption.CUSTOM]: saveCustomList,
     [LearningOption.NEW]: saveRandomList,
     [LearningOption.PRACTICE]: savePracticedWords,
+    [LearningOption.KNOW]: saveLearnedWords,
   };
 
   const saveOptions = async () => {
@@ -199,7 +208,7 @@ export const OptionsModal = ({
             <OptionItem
               optionType={LearningOption.PRACTICE}
               isSelecteed={selectedOption === LearningOption.PRACTICE}
-              reactIcon={GrUserWorker}
+              reactIcon={GiStrongMan}
               setSelectedOption={setSelectedOption}
               text="Practice"
             />
@@ -209,6 +218,13 @@ export const OptionsModal = ({
               reactIcon={FaEdit}
               setSelectedOption={setSelectedOption}
               text="Custom"
+            />
+            <OptionItem
+              optionType={LearningOption.KNOW}
+              isSelecteed={selectedOption === LearningOption.KNOW}
+              reactIcon={BiMemoryCard}
+              setSelectedOption={setSelectedOption}
+              text="Learned"
             />
           </div>
           <div style={{ display: "flex", height: "74%" }}>
@@ -236,31 +252,31 @@ export const OptionsModal = ({
                   You didn't learn new Words to practice with
                 </div>
               )}
+            {selectedOption === LearningOption.KNOW &&
+              learnedList.length === 0 && (
+                <div style={{ margin: "auto" }}>You didn't learn new Words</div>
+              )}
             {selectedOption === LearningOption.NEW && (
               <div style={{ margin: "auto" }}>Learn New Words!</div>
             )}
             {selectedOption === LearningOption.PRACTICE &&
-              practiceWords.length > 0 && (
-                <div className="practicedWordsList">
-                  {practiceWords.map((item: Word) => (
-                    <div key={item.english} className="practicedWordItem">
-                      <div
-                        className="practiceRemoveButton"
-                        onClick={() => removePracticedWord(item)}
-                      >
-                        <CgRemove />
-                      </div>
-                      <div className="practicedEnglish">{item.english}</div>
-                      <div className="practicedSpanish">{item.spanish}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              practiceWords.length > 0 && <PracticeList />}
+            {selectedOption === LearningOption.KNOW &&
+              practiceWords.length > 0 && <LearnedList />}
           </div>
         </div>
         <div className="applyListButton">
           {isLoading && <ClipLoader size={30} color="#36d7b7" />}
-          {!isLoading && <AiOutlineSave onClick={saveOptions} size={30} />}
+          {!isLoading && (
+            <>
+              <AiOutlineSave onClick={saveOptions} size={30} />
+              {selectedOption === LearningOption.KNOW && (
+                <div style={{ fontSize: 13, marginTop: 5 }}>
+                  ({learnedList.length})
+                </div>
+              )}
+            </>
+          )}
         </div>
         {selectedOption === LearningOption.CUSTOM && (
           <div className="extraActionButton" onClick={addCustomWordsToPractice}>

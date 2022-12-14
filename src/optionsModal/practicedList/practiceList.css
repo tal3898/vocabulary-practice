@@ -1,0 +1,24 @@
+.practicedWordsList {
+  height: 100%;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.practicedWordItem {
+  display: flex;
+}
+
+.practiceRemoveButton {
+  padding-top: 13px;
+  margin-right: 10px;
+  color: #f44336;
+  cursor: pointer;
+}
+.practicedEnglish {
+  width: 50%;
+  padding: 10px;
+}
+
+.practicedSpanish {
+  padding: 10px;
+}
