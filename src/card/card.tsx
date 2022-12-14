@@ -47,7 +47,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [shuffledWords, setShuffledWords] = useState(wordsList);
   const practiceWords = useSelector(practiceListSelector);
   const dispatch = useDispatch();
-  console.log({ b: practiceWords });
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
     setShuffledWords(reshuffledWords);

@@ -56,7 +56,6 @@ export const OptionsModal = ({
   // const [practiceWords, setPracticeWords] = useState(getPracticeWords());
   const practiceWords = useSelector(practiceListSelector);
   const dispatch = useDispatch();
-  console.log({ aaa: practiceWords });
   translate.engine = "google";
   const NEW_WORDS_GENERATOR_SIZE = 70;
 

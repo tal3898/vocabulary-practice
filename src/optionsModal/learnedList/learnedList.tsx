@@ -1,6 +1,7 @@
 import { CgRemove } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { Word } from "../../models/word";
+import { learnedListSelector } from "../../stateManagement/learnedList";
 import {
   practiceListSelector,
   setPracticeList,
@@ -8,7 +9,7 @@ import {
 import "./learnedList.css";
 
 export const LearnedList = () => {
-  const practiceWords = useSelector(practiceListSelector);
+  const practiceWords = useSelector(learnedListSelector);
   const dispatch = useDispatch();
 
   const removePracticedWord = (word: Word) => {

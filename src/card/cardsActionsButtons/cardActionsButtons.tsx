@@ -31,10 +31,10 @@ export const CardActionsButtons = ({ word }: Props) => {
 
   const wordCurrentStatus = useMemo(() => {
     const isPracticed = practiceWords.some(
-      (word: Word) => word.english === word.english
+      (curWord: Word) => curWord.english === word.english
     );
     const isLearned = learnedWords.some(
-      (word: Word) => word.english === word.english
+      (curWord: Word) => curWord.english === word.english
     );
 
     if (isPracticed) {
