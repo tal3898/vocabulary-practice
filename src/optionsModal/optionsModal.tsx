@@ -17,6 +17,8 @@ import {
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useSelector, useDispatch } from "react-redux";
+import { setPracticeList } from "../stateManagement/practiceList";
 
 const style = {
   position: "absolute" as "absolute",
@@ -49,14 +51,18 @@ export const OptionsModal = ({
   const [errorText, setErrorText] = useState<undefined | string>();
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
-  const [practiceWords, setPracticeWords] = useState(getPracticeWords());
+  // const [practiceWords, setPracticeWords] = useState(getPracticeWords());
+  const practiceWords = useSelector(
+    (state: any) => state.practiceList.practiceList
+  );
+  const dispatch = useDispatch();
 
   translate.engine = "google";
   const NEW_WORDS_GENERATOR_SIZE = 70;
 
-  useEffect(() => {
-    setPracticeWords(getPracticeWords());
-  }, [open]);
+  // useEffect(() => {
+  //   setPracticeWords(getPracticeWords());
+  // }, [open]);
 
   const saveRandomList = async () => {
     setIsLoading(true);
@@ -107,7 +113,7 @@ export const OptionsModal = ({
     }
 
     return finalWordsList;
-  }
+  };
 
   const saveCustomList = () => {
     try {
@@ -145,27 +151,31 @@ export const OptionsModal = ({
       ...practiceWords.slice(0, wordIndex),
       ...practiceWords.slice(wordIndex + 1),
     ];
-    savePracticeWords(newList);
-    setPracticeWords(newList);
+    newList;
+    dispatch(setPracticeList(newList));
   };
 
   const addCustomWordsToPractice = () => {
     const clientWordsList: Word[] = getWordsListFromInput();
     const newPracticedWordsList = [...practiceWords];
     for (const newWord of clientWordsList) {
-      if (!newPracticedWordsList.some((word: Word) => word.english === newWord.english)) {
-        newPracticedWordsList.push(newWord)
+      if (
+        !newPracticedWordsList.some(
+          (word: Word) => word.english === newWord.english
+        )
+      ) {
+        newPracticedWordsList.push(newWord);
       }
     }
 
     savePracticeWords(newPracticedWordsList);
-    setPracticeWords(newPracticedWordsList);
-  }
+    dispatch(setPracticeList(newPracticedWordsList));
+  };
 
   const clearPracticeWordsList = () => {
     savePracticeWords([]);
-    setPracticeWords([]);
-  }
+    dispatch(setPracticeList([]));
+  };
 
   const onClose = () => {
     setSelectedOption(selectedLearningOption);
@@ -261,12 +271,12 @@ export const OptionsModal = ({
         {selectedOption === LearningOption.CUSTOM && (
           <div className="extraActionButton" onClick={addCustomWordsToPractice}>
             <AiOutlinePlus size={30} />
-           </div>
+          </div>
         )}
         {selectedOption === LearningOption.PRACTICE && (
           <div className="extraActionButton" onClick={clearPracticeWordsList}>
             <AiOutlineClear size={30} />
-           </div>
+          </div>
         )}
         <div
           style={{ visibility: errorText !== undefined ? "visible" : "hidden" }}

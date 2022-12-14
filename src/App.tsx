@@ -7,6 +7,8 @@ import { LearningOption } from "./models/learningOption";
 import { OriginalLanguage } from "./models/originalLanguage";
 import { Word } from "./models/word";
 import { OptionsModal } from "./optionsModal/optionsModal";
+import { Provider } from "react-redux";
+import store from "./stateManagement/store";
 
 const stub = [
   {
@@ -36,35 +38,37 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ padding: 1 }}>
-      {/* <p>hjel</p> */}
-      <div className="header">
-        <div onClick={() => setOpen(true)} className="listButton">
-          <IoMdSettings color="rgb(106 106 106)" size={40} />
+    <Provider store={store}>
+      <div className="App" style={{ padding: 1 }}>
+        {/* <p>hjel</p> */}
+        <div className="header">
+          <div onClick={() => setOpen(true)} className="listButton">
+            <IoMdSettings color="rgb(106 106 106)" size={40} />
+          </div>
+          <div
+            onClick={() => changeOriginalLanguage()}
+            className="originalLangBtn"
+          >
+            {fromLanguage}
+          </div>
         </div>
-        <div
-          onClick={() => changeOriginalLanguage()}
-          className="originalLangBtn"
-        >
-          {fromLanguage}
+        <div className="content" style={{ display: "flex", height: "100%" }}>
+          <Card
+            selectedLearningOption={selectedLearningOption}
+            fromLanguage={fromLanguage}
+            wordsList={wordsList}
+          />
         </div>
-      </div>
-      <div className="content" style={{ display: "flex", height: "100%" }}>
-        <Card
+
+        <OptionsModal
           selectedLearningOption={selectedLearningOption}
-          fromLanguage={fromLanguage}
-          wordsList={wordsList}
+          setSelectedLearningOption={setSelectedLearningOption}
+          onChangeWordsList={setWordsList}
+          open={open}
+          setIsOpen={setOpen}
         />
       </div>
-
-      <OptionsModal
-        selectedLearningOption={selectedLearningOption}
-        setSelectedLearningOption={setSelectedLearningOption}
-        onChangeWordsList={setWordsList}
-        open={open}
-        setIsOpen={setOpen}
-      />
-    </div>
+    </Provider>
   );
 }
 
