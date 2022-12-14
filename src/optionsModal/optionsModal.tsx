@@ -18,7 +18,10 @@ import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
-import { setPracticeList } from "../stateManagement/practiceList";
+import {
+  practiceListSelector,
+  setPracticeList,
+} from "../stateManagement/practiceList";
 
 const style = {
   position: "absolute" as "absolute",
@@ -52,11 +55,9 @@ export const OptionsModal = ({
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
   // const [practiceWords, setPracticeWords] = useState(getPracticeWords());
-  const practiceWords = useSelector(
-    (state: any) => state.practiceList.practiceList
-  );
+  const practiceWords = useSelector(practiceListSelector);
   const dispatch = useDispatch();
-
+  console.log({ aaa: practiceWords });
   translate.engine = "google";
   const NEW_WORDS_GENERATOR_SIZE = 70;
 
@@ -151,7 +152,6 @@ export const OptionsModal = ({
       ...practiceWords.slice(0, wordIndex),
       ...practiceWords.slice(wordIndex + 1),
     ];
-    newList;
     dispatch(setPracticeList(newList));
   };
 
@@ -168,12 +168,10 @@ export const OptionsModal = ({
       }
     }
 
-    savePracticeWords(newPracticedWordsList);
     dispatch(setPracticeList(newPracticedWordsList));
   };
 
   const clearPracticeWordsList = () => {
-    savePracticeWords([]);
     dispatch(setPracticeList([]));
   };
 

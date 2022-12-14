@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Word } from "../models/word";
-import { savePracticeWords } from "../utils/practiceLocalStorage";
+import {
+  getPracticeWords,
+  savePracticeWords,
+} from "../utils/practiceLocalStorage";
+
+const initialPracticeList = getPracticeWords();
 
 export const slice = createSlice({
   name: "practiceList",
   initialState: {
-    practiceList: [],
+    practiceList: initialPracticeList,
   },
   reducers: {
     setPracticeList: (state: any, action: PayloadAction<Word[]>) => {
@@ -16,5 +21,7 @@ export const slice = createSlice({
   },
 });
 
+export const practiceListSelector = (state: any): Word[] =>
+  state.practiceList.practiceList;
 export const { setPracticeList } = slice.actions;
 export const reducer = slice.reducer;

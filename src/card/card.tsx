@@ -11,6 +11,11 @@ import {
   savePracticeWords,
 } from "../utils/practiceLocalStorage";
 import "./card.css";
+import {
+  practiceListSelector,
+  setPracticeList,
+} from "../stateManagement/practiceList";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Props {
   wordsList: Word[];
@@ -33,19 +38,21 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     fromLanguage === OriginalLanguage.ENGLISH
   );
   const [isSoundOn, setIsSoundOn] = useState(false);
-  const [isWordSaved, setIsWordSaved] = useState(false);
   const [shuffledWords, setShuffledWords] = useState(wordsList);
-  const practicedWords = useMemo(() => {
-    console.log("{ practicedWords }");
-    return getPracticeWords();
-  }, []);
-  console.log({ practicedWords });
-
+  const practiceWords = useSelector(practiceListSelector);
+  const dispatch = useDispatch();
+  console.log({ b: practiceWords });
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
     setShuffledWords(reshuffledWords);
     setCurrentWordIndex(0);
   }, [wordsList]);
+
+  const isWordSaved = useMemo(() => {
+    return practiceWords.some(
+      (word: Word) => word.english === shuffledWords[currentWordIndex].english
+    );
+  }, [practiceWords, currentWordIndex]);
 
   const { speak, voices } = useSpeechSynthesis();
   const spanishVoice = voices.find((v: any) => v.lang === "es-ES");
@@ -93,7 +100,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     }
     setCurrentWordIndex(nextWordIndex);
     setIsTranslationHidden(true);
-    setIsWordSaved(false);
 
     if (
       isSoundOn &&
@@ -115,19 +121,15 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   };
 
   const addNewWordToPractice = () => {
-    const practiceWords = getPracticeWords();
-    practiceWords.push(shuffledWords[currentWordIndex]);
-    savePracticeWords(practiceWords);
-    setIsWordSaved(true);
+    const newList = [...practiceWords, shuffledWords[currentWordIndex]];
+    dispatch(setPracticeList(newList));
   };
 
   const removeWordFromPractice = () => {
-    const practiceWords = getPracticeWords();
     const newPracticeList = practiceWords.filter(
-      (word: Word) => word.english !== wordsList[currentWordIndex].english
+      (word: Word) => word.english !== shuffledWords[currentWordIndex].english
     );
-    savePracticeWords(newPracticeList);
-    setIsWordSaved(false);
+    dispatch(setPracticeList(newPracticeList));
   };
 
   return (
@@ -168,28 +170,16 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           size={28}
           onClick={changeToNextWord}
         />
-        {selectedLearningOption !== LearningOption.PRACTICE &&
-          !isWordSaved &&
-          !practicedWords.some(
-            (word: Word) =>
-              word.english === shuffledWords[currentWordIndex].english
-          ) && (
-            <div className="addToPracticeAction" onClick={addNewWordToPractice}>
-              <AiFillPlusCircle size={26} />
-            </div>
-          )}
-        {isWordSaved &&
-          practicedWords.some(
-            (word: Word) =>
-              word.english === shuffledWords[currentWordIndex].english
-          ) && (
-            <div
-              className="addToPracticeAction"
-              onClick={removeWordFromPractice}
-            >
-              <CgRemove size={26} />
-            </div>
-          )}
+        {!isWordSaved && (
+          <div className="addToPracticeAction" onClick={addNewWordToPractice}>
+            <AiFillPlusCircle size={26} />
+          </div>
+        )}
+        {isWordSaved && (
+          <div className="addToPracticeAction" onClick={removeWordFromPractice}>
+            <CgRemove size={26} />
+          </div>
+        )}
       </div>
     </div>
   );
