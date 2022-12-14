@@ -12,8 +12,10 @@ import ClipLoader from "react-spinners/ClipLoader";
 import translate from "translate";
 import { LearningOption } from "../models/learningOption";
 import { Word } from "../models/word";
-import { setPracticeList } from "../stateManagement/practiceList";
-import { savePracticeWords } from "../utils/practiceLocalStorage";
+import {
+  practiceListSelector,
+  setPracticeList,
+} from "../stateManagement/practiceList";
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
 
@@ -49,11 +51,9 @@ export const OptionsModal = ({
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
   // const [practiceWords, setPracticeWords] = useState(getPracticeWords());
-  const practiceWords = useSelector(
-    (state: any) => state.practiceList.practiceList
-  );
+  const practiceWords = useSelector(practiceListSelector);
   const dispatch = useDispatch();
-
+  console.log({ aaa: practiceWords });
   translate.engine = "google";
   const NEW_WORDS_GENERATOR_SIZE = 70;
 
@@ -164,12 +164,10 @@ export const OptionsModal = ({
       }
     }
 
-    savePracticeWords(newPracticedWordsList);
     dispatch(setPracticeList(newPracticedWordsList));
   };
 
   const clearPracticeWordsList = () => {
-    savePracticeWords([]);
     dispatch(setPracticeList([]));
   };
 
