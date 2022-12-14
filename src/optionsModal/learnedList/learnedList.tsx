@@ -1,7 +1,10 @@
 import { CgRemove } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { Word } from "../../models/word";
-import { learnedListSelector } from "../../stateManagement/learnedList";
+import {
+  learnedListSelector,
+  setLearnedList,
+} from "../../stateManagement/learnedList";
 import {
   practiceListSelector,
   setPracticeList,
@@ -9,27 +12,31 @@ import {
 import "./learnedList.css";
 
 export const LearnedList = () => {
-  const practiceWords = useSelector(learnedListSelector);
+  const learnedWords = useSelector(learnedListSelector);
+  const practiceWords = useSelector(practiceListSelector);
   const dispatch = useDispatch();
 
-  const removePracticedWord = (word: Word) => {
-    const wordIndex = practiceWords.findIndex(
+  const removeLearnedWord = (word: Word) => {
+    const wordIndex = learnedWords.findIndex(
       (w: Word) => w.english === word.english
     );
-    const newList = [
-      ...practiceWords.slice(0, wordIndex),
-      ...practiceWords.slice(wordIndex + 1),
+    const newLearnedList = [
+      ...learnedWords.slice(0, wordIndex),
+      ...learnedWords.slice(wordIndex + 1),
     ];
-    dispatch(setPracticeList(newList));
+
+    const newPracticedList = [...practiceWords, word];
+    dispatch(setLearnedList(newLearnedList));
+    dispatch(setPracticeList(newPracticedList));
   };
 
   return (
     <div className="learnedWordsList">
-      {practiceWords.map((item: Word) => (
+      {learnedWords.map((item: Word) => (
         <div key={item.english} className="learnedWordItem">
           <div
             className="learnedRemoveButton"
-            onClick={() => removePracticedWord(item)}
+            onClick={() => removeLearnedWord(item)}
           >
             <CgRemove />
           </div>
