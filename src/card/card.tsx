@@ -169,13 +169,17 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           reveal
         </p>
       )}
+      <div style={{ display: "flex" }}>
+        <div style={{ marginLeft: "auto", marginRight: "auto" }}>
+          <CardActionsButtons word={shuffledWords[currentWordIndex]} />
+        </div>
+      </div>
       <div className="cardActions">
         <AiOutlineArrowLeft
           style={{ cursor: "pointer" }}
           size={28}
           onClick={changeToNextWord}
         />
-        <CardActionsButtons word={shuffledWords[currentWordIndex]} />
       </div>
     </div>
   );
