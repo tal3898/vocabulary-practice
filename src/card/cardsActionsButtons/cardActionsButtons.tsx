@@ -66,10 +66,10 @@ export const CardActionsButtons = ({ word }: Props) => {
 
   const removeWordFromAllLists = () => {
     const newPracticeList = practiceWords.filter(
-      (word: Word) => word.english !== word.english
+      (curWord: Word) => curWord.english !== word.english
     );
     const newLearnedList = learnedWords.filter(
-      (word: Word) => word.english !== word.english
+      (curWord: Word) => curWord.english !== word.english
     );
     dispatch(setPracticeList(newPracticeList));
     dispatch(setLearnedList(newLearnedList));

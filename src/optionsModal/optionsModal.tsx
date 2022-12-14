@@ -149,17 +149,6 @@ export const OptionsModal = ({
     await learningOptionHandler();
   };
 
-  const removePracticedWord = (word: Word) => {
-    const wordIndex = practiceWords.findIndex(
-      (w: Word) => w.english === word.english
-    );
-    const newList = [
-      ...practiceWords.slice(0, wordIndex),
-      ...practiceWords.slice(wordIndex + 1),
-    ];
-    dispatch(setPracticeList(newList));
-  };
-
   const addCustomWordsToPractice = () => {
     const clientWordsList: Word[] = getWordsListFromInput();
     const newPracticedWordsList = [...practiceWords];

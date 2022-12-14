@@ -43,12 +43,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     setCurrentWordIndex(0);
   }, [wordsList]);
 
-  const isWordSaved = useMemo(() => {
-    return practiceWords.some(
-      (word: Word) => word.english === shuffledWords[currentWordIndex].english
-    );
-  }, [practiceWords, currentWordIndex, shuffledWords]);
-
   const { speak, voices } = useSpeechSynthesis();
   const spanishVoice = voices.find((v: any) => v.lang === "es-ES");
 
@@ -113,18 +107,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     if (translateFromEnglish && isSoundOn) {
       speak({ text: translationWord, voice: spanishVoice });
     }
-  };
-
-  const addNewWordToPractice = () => {
-    const newList = [...practiceWords, shuffledWords[currentWordIndex]];
-    dispatch(setPracticeList(newList));
-  };
-
-  const removeWordFromPractice = () => {
-    const newPracticeList = practiceWords.filter(
-      (word: Word) => word.english !== shuffledWords[currentWordIndex].english
-    );
-    dispatch(setPracticeList(newPracticeList));
   };
 
   return (
