@@ -20,6 +20,7 @@ import {
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
 import { PracticeList } from "./practicedList/practiceList";
+import { LearnedList } from "./learnedList/learnedList";
 
 const style = {
   position: "absolute" as "absolute",
@@ -251,6 +252,8 @@ export const OptionsModal = ({
             )}
             {selectedOption === LearningOption.PRACTICE &&
               practiceWords.length > 0 && <PracticeList />}
+            {selectedOption === LearningOption.KNOW &&
+              practiceWords.length > 0 && <LearnedList />}
           </div>
         </div>
         <div className="applyListButton">

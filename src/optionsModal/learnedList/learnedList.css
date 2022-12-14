@@ -1,0 +1,24 @@
+.learnedWordsList {
+  height: 100%;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.learnedWordItem {
+  display: flex;
+}
+
+.learnedRemoveButton {
+  padding-top: 13px;
+  margin-right: 10px;
+  color: #f4a236;
+  cursor: pointer;
+}
+.learnedEnglish {
+  width: 50%;
+  padding: 10px;
+}
+
+.learnedSpanish {
+  padding: 10px;
+}
