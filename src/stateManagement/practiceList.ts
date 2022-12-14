@@ -21,7 +21,8 @@ export const slice = createSlice({
   },
 });
 
-export const practiceListSelector = (state: any): Word[] =>
-  state.practiceList.practiceList;
+export const practiceListSelector = (state: any): Word[] => {
+  return state.practiceList.practiceList;
+};
 export const { setPracticeList } = slice.actions;
 export const reducer = slice.reducer;

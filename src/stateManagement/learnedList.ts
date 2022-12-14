@@ -11,7 +11,7 @@ const initialList = getLearnedWords();
 export const slice = createSlice({
   name: "learnedList",
   initialState: {
-    learnList: initialList,
+    learnedList: initialList,
   },
   reducers: {
     setLearnedList: (state: any, action: PayloadAction<Word[]>) => {
@@ -21,7 +21,8 @@ export const slice = createSlice({
   },
 });
 
-export const learnedListSelector = (state: any): Word[] =>
-  state.learnedList.learnedList;
+export const learnedListSelector = (state: any): Word[] => {
+  return state.learnedList.learnedList;
+};
 export const { setLearnedList } = slice.actions;
 export const reducer = slice.reducer;

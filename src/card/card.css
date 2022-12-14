@@ -50,6 +50,10 @@
 
 .addToPracticeAction {
   width: fit-content;
-  color: #66bb6a;
   cursor: pointer;
+  margin-right: 10px;
+}
+
+.cardActionsButton {
+  display: flex;
 }

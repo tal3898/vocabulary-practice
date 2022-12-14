@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { AiFillPlusCircle, AiOutlineArrowLeft } from "react-icons/ai";
+import {
+  AiFillPlusCircle,
+  AiOutlineArrowLeft,
+  AiOutlineCheckCircle,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import { CgRemove } from "react-icons/cg";
 import { useSpeechSynthesis } from "react-speech-kit";
@@ -16,6 +21,7 @@ import {
   setPracticeList,
 } from "../stateManagement/practiceList";
 import { useDispatch, useSelector } from "react-redux";
+import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
 
 interface Props {
   wordsList: Word[];
@@ -170,16 +176,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           size={28}
           onClick={changeToNextWord}
         />
-        {!isWordSaved && (
-          <div className="addToPracticeAction" onClick={addNewWordToPractice}>
-            <AiFillPlusCircle size={26} />
-          </div>
-        )}
-        {isWordSaved && (
-          <div className="addToPracticeAction" onClick={removeWordFromPractice}>
-            <CgRemove size={26} />
-          </div>
-        )}
+        <CardActionsButtons word={shuffledWords[currentWordIndex]} />
       </div>
     </div>
   );
