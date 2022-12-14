@@ -19,6 +19,7 @@ import {
 } from "../stateManagement/practiceList";
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
+import { PracticeList } from "./practicedList/practiceList";
 
 const style = {
   position: "absolute" as "absolute",
@@ -249,22 +250,7 @@ export const OptionsModal = ({
               <div style={{ margin: "auto" }}>Learn New Words!</div>
             )}
             {selectedOption === LearningOption.PRACTICE &&
-              practiceWords.length > 0 && (
-                <div className="practicedWordsList">
-                  {practiceWords.map((item: Word) => (
-                    <div key={item.english} className="practicedWordItem">
-                      <div
-                        className="practiceRemoveButton"
-                        onClick={() => removePracticedWord(item)}
-                      >
-                        <CgRemove />
-                      </div>
-                      <div className="practicedEnglish">{item.english}</div>
-                      <div className="practicedSpanish">{item.spanish}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              practiceWords.length > 0 && <PracticeList />}
           </div>
         </div>
         <div className="applyListButton">
