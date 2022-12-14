@@ -5,8 +5,9 @@ import { useState } from "react";
 import { AiOutlineClear, AiOutlinePlus, AiOutlineSave } from "react-icons/ai";
 import { CgRemove } from "react-icons/cg";
 import { FaEdit } from "react-icons/fa";
+import { BiMemoryCard } from "react-icons/bi";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
-import { GrUserWorker } from "react-icons/gr";
+import { GiStrongMan } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import translate from "translate";
@@ -133,6 +134,7 @@ export const OptionsModal = ({
     [LearningOption.CUSTOM]: saveCustomList,
     [LearningOption.NEW]: saveRandomList,
     [LearningOption.PRACTICE]: savePracticedWords,
+    [LearningOption.KNOW]: savePracticedWords,
   };
 
   const saveOptions = async () => {
@@ -199,7 +201,7 @@ export const OptionsModal = ({
             <OptionItem
               optionType={LearningOption.PRACTICE}
               isSelecteed={selectedOption === LearningOption.PRACTICE}
-              reactIcon={GrUserWorker}
+              reactIcon={GiStrongMan}
               setSelectedOption={setSelectedOption}
               text="Practice"
             />
@@ -209,6 +211,13 @@ export const OptionsModal = ({
               reactIcon={FaEdit}
               setSelectedOption={setSelectedOption}
               text="Custom"
+            />
+            <OptionItem
+              optionType={LearningOption.KNOW}
+              isSelecteed={selectedOption === LearningOption.KNOW}
+              reactIcon={BiMemoryCard}
+              setSelectedOption={setSelectedOption}
+              text="Learned"
             />
           </div>
           <div style={{ display: "flex", height: "74%" }}>
