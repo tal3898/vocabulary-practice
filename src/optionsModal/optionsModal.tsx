@@ -270,6 +270,9 @@ export const OptionsModal = ({
         {selectedOption === LearningOption.PRACTICE && (
           <div className="extraActionButton" onClick={clearPracticeWordsList}>
             <AiOutlineClear size={30} />
+            <div style={{ fontSize: 13, marginTop: 5 }}>
+              ({practiceWords.length})
+            </div>
           </div>
         )}
         <div
