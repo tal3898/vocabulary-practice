@@ -1,24 +1,21 @@
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { useEffect, useState } from "react";
-import { CgRemove } from "react-icons/cg";
 import randomWords from "random-words";
-import { AiOutlineSave, AiOutlinePlus, AiOutlineClear } from "react-icons/ai";
+import { useState } from "react";
+import { AiOutlineClear, AiOutlinePlus, AiOutlineSave } from "react-icons/ai";
+import { CgRemove } from "react-icons/cg";
 import { FaEdit } from "react-icons/fa";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { GrUserWorker } from "react-icons/gr";
+import { useDispatch, useSelector } from "react-redux";
+import ClipLoader from "react-spinners/ClipLoader";
 import translate from "translate";
 import { LearningOption } from "../models/learningOption";
 import { Word } from "../models/word";
-import {
-  getPracticeWords,
-  savePracticeWords,
-} from "../utils/practiceLocalStorage";
+import { setPracticeList } from "../stateManagement/practiceList";
+import { savePracticeWords } from "../utils/practiceLocalStorage";
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
-import ClipLoader from "react-spinners/ClipLoader";
-import { useSelector, useDispatch } from "react-redux";
-import { setPracticeList } from "../stateManagement/practiceList";
 
 const style = {
   position: "absolute" as "absolute",
@@ -151,7 +148,6 @@ export const OptionsModal = ({
       ...practiceWords.slice(0, wordIndex),
       ...practiceWords.slice(wordIndex + 1),
     ];
-    newList;
     dispatch(setPracticeList(newList));
   };
 
