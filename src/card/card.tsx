@@ -1,21 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { AiFillPlusCircle, AiOutlineArrowLeft } from "react-icons/ai";
-import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import { CgRemove } from "react-icons/cg";
+import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { useDispatch, useSelector } from "react-redux";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
 import {
-  getPracticeWords,
-  savePracticeWords,
-} from "../utils/practiceLocalStorage";
-import "./card.css";
-import {
   practiceListSelector,
   setPracticeList,
 } from "../stateManagement/practiceList";
-import { useDispatch, useSelector } from "react-redux";
+import "./card.css";
 
 interface Props {
   wordsList: Word[];
@@ -52,7 +48,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     return practiceWords.some(
       (word: Word) => word.english === shuffledWords[currentWordIndex].english
     );
-  }, [practiceWords, currentWordIndex]);
+  }, [practiceWords, currentWordIndex, shuffledWords]);
 
   const { speak, voices } = useSpeechSynthesis();
   const spanishVoice = voices.find((v: any) => v.lang === "es-ES");
