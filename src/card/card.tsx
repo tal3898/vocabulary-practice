@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,10 +6,7 @@ import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
-import {
-  practiceListSelector,
-  setPracticeList,
-} from "../stateManagement/practiceList";
+import { practiceListSelector } from "../stateManagement/practiceList";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
 
@@ -35,8 +32,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   );
   const [isSoundOn, setIsSoundOn] = useState(false);
   const [shuffledWords, setShuffledWords] = useState(wordsList);
-  const practiceWords = useSelector(practiceListSelector);
-  const dispatch = useDispatch();
+
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
     setShuffledWords(reshuffledWords);
