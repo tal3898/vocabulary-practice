@@ -252,6 +252,10 @@ export const OptionsModal = ({
                   You didn't learn new Words to practice with
                 </div>
               )}
+            {selectedOption === LearningOption.KNOW &&
+              learnedList.length === 0 && (
+                <div style={{ margin: "auto" }}>You didn't learn new Words</div>
+              )}
             {selectedOption === LearningOption.NEW && (
               <div style={{ margin: "auto" }}>Learn New Words!</div>
             )}
@@ -263,7 +267,16 @@ export const OptionsModal = ({
         </div>
         <div className="applyListButton">
           {isLoading && <ClipLoader size={30} color="#36d7b7" />}
-          {!isLoading && <AiOutlineSave onClick={saveOptions} size={30} />}
+          {!isLoading && (
+            <>
+              <AiOutlineSave onClick={saveOptions} size={30} />
+              {selectedOption === LearningOption.KNOW && (
+                <div style={{ fontSize: 13, marginTop: 5 }}>
+                  ({learnedList.length})
+                </div>
+              )}
+            </>
+          )}
         </div>
         {selectedOption === LearningOption.CUSTOM && (
           <div className="extraActionButton" onClick={addCustomWordsToPractice}>
