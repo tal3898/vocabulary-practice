@@ -7,6 +7,7 @@ import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
+import wiki from "wikipedia";
 
 interface Props {
   wordsList: Word[];
@@ -66,7 +67,31 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     return randomBinaryNumber === 1;
   };
 
-  const changeToNextWord = () => {
+  const getRandomSentence = async (spanishWord: string) => {
+    await wiki.setLang("es");
+    let page = await wiki.page("Batman");
+    let content = await page.content();
+    let links = await page.links();
+    debugger;
+    while (!content.toLowerCase().includes(spanishWord.toLowerCase())) {
+      const randomLinkIndex = getRandomInt(links.length);
+      const randomLink = links[randomLinkIndex];
+
+      page = await wiki.page(randomLink);
+      content = await page.content();
+
+      console.log({
+        page,
+        content,
+      });
+    }
+
+    console.log({ content });
+    return "hello";
+  };
+
+  const changeToNextWord = async () => {
+    const randomSentence = await getRandomSentence("hola");
     let isNextWordSpanish = fromLanguage === OriginalLanguage.SPANISH;
     if (fromLanguage === OriginalLanguage.RANDOM) {
       const isEnglish = getRandomOriginalLanguage();

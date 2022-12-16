@@ -14,6 +14,7 @@
     "@types/node": "^16.18.3",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
+    "fakerator": "^0.3.6",
     "random-spanish-words": "^2.0.0",
     "random-words": "^1.2.0",
     "react": "^18.2.0",
@@ -26,7 +27,8 @@
     "redux": "^4.2.0",
     "translate": "^1.4.1",
     "typescript": "^4.9.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "wikipedia": "^1.1.9"
   },
   "scripts": {
     "start": "react-scripts start",
