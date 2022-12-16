@@ -79,6 +79,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
 
       page = await wiki.page(randomLink);
       content = await page.content();
+      links = await page.links();
 
       console.log({
         page,
@@ -86,12 +87,29 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       });
     }
 
-    console.log({ content });
-    return "hello";
+    const exampleIndex = content.toLowerCase().indexOf(spanishWord);
+    const endOfSentencePeriod = content
+      .toLowerCase()
+      .indexOf(".", exampleIndex);
+    const endOfSentenceComma = content.toLowerCase().indexOf(",", exampleIndex);
+    const endOfSentence = Math.min(endOfSentenceComma, endOfSentencePeriod);
+
+    const firstIndexOfPeriod = content
+      .toLowerCase()
+      .substring(0, exampleIndex)
+      .lastIndexOf(".");
+    const firstIndexOfComma = content
+      .toLowerCase()
+      .substring(0, exampleIndex)
+      .lastIndexOf(",");
+    const firstIndex = Math.max(firstIndexOfPeriod, firstIndexOfComma);
+    const randomSentence = content.substring(firstIndex, endOfSentence);
+    console.log({ randomSentence });
+    return randomSentence;
   };
 
   const changeToNextWord = async () => {
-    const randomSentence = await getRandomSentence("hola");
+    const randomSentence = await getRandomSentence("fuerte");
     let isNextWordSpanish = fromLanguage === OriginalLanguage.SPANISH;
     if (fromLanguage === OriginalLanguage.RANDOM) {
       const isEnglish = getRandomOriginalLanguage();
