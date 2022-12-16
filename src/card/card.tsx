@@ -197,19 +197,19 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
         selectedLearningOption === LearningOption.NEW) && (
         <div className="translationBox">
           <div className="translationWord">{translationWord}</div>
-          <div className="exampleSentence" onClick={loadRandomSentence}>
+          <div>
             {!isLoadingSentence && (
-              <>
+              <div className="exampleSentence" onClick={loadRandomSentence}>
                 <div className="exampleSentenceRandomBtn">
                   <FaDice />
                 </div>
                 {exampleSentence ?? "Click to get example sentence"}
-              </>
+              </div>
             )}
             {isLoadingSentence && (
-              <>
+              <div className="exampleSentenceLoader">
                 <ClipLoader size={11} color="#36d7b7" />
-              </>
+              </div>
             )}
           </div>
         </div>
