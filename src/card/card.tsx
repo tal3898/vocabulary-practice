@@ -74,28 +74,31 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   };
 
   const getRandomSentence = async (spanishWord: string) => {
+    const searchFor = " " + spanishWord.toLowerCase() + " ";
     await wiki.setLang("es");
-    let page = await wiki.page("Batman");
+    let page = await wiki.page("Anexo:Redes LTE");
     let content = await page.content();
     let links = await page.links();
 
-    while (!content.toLowerCase().includes(spanishWord.toLowerCase())) {
+    while (!content.toLowerCase().includes(searchFor)) {
       const randomLinkIndex = getRandomInt(links.length);
       const randomLink = links[randomLinkIndex];
 
-      page = await wiki.page(randomLink);
-      content = await page.content();
-      links = await page.links();
+      try {
+        page = await wiki.page(randomLink);
+        content = await page.content();
+        links = await page.links();
 
-      console.log({
-        page,
-        content,
-      });
+        console.log({
+          page,
+          content,
+        });
+      } catch (e) {
+        console.log("error occured while searching for a sentence");
+      }
     }
 
-    const exampleIndex = content
-      .toLowerCase()
-      .indexOf(spanishWord.toLowerCase());
+    const exampleIndex = content.toLowerCase().indexOf(searchFor);
     const endOfSentencePeriod = content
       .toLowerCase()
       .indexOf(".", exampleIndex);
