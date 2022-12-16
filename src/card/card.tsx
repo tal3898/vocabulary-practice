@@ -87,7 +87,9 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       });
     }
 
-    const exampleIndex = content.toLowerCase().indexOf(spanishWord);
+    const exampleIndex = content
+      .toLowerCase()
+      .indexOf(spanishWord.toLowerCase());
     const endOfSentencePeriod = content
       .toLowerCase()
       .indexOf(".", exampleIndex);
@@ -103,13 +105,13 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       .substring(0, exampleIndex)
       .lastIndexOf(",");
     const firstIndex = Math.max(firstIndexOfPeriod, firstIndexOfComma);
-    const randomSentence = content.substring(firstIndex, endOfSentence);
+    const randomSentence = content.substring(firstIndex + 1, endOfSentence);
     console.log({ randomSentence });
     return randomSentence;
   };
 
   const changeToNextWord = async () => {
-    const randomSentence = await getRandomSentence("fuerte");
+    const randomSentence = await getRandomSentence("Castigo");
     let isNextWordSpanish = fromLanguage === OriginalLanguage.SPANISH;
     if (fromLanguage === OriginalLanguage.RANDOM) {
       const isEnglish = getRandomOriginalLanguage();
