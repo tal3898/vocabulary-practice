@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
-import { FaDice } from "react-icons/fa";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
-import wiki from "wikipedia";
-import ClipLoader from "react-spinners/ClipLoader";
 import { ExampleSentence } from "./exampleSentence/exampleSentence";
 
 interface Props {
