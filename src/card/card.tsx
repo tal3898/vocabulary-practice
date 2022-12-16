@@ -10,6 +10,7 @@ import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
 import wiki from "wikipedia";
 import ClipLoader from "react-spinners/ClipLoader";
+import { ExampleSentence } from "./exampleSentence/exampleSentence";
 
 interface Props {
   wordsList: Word[];
@@ -36,7 +37,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [exampleSentence, setExampleSentence] = useState<string | undefined>(
     undefined
   );
-  const [isLoadingSentence, setIsLoadingSentence] = useState(false);
 
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
@@ -71,65 +71,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const getRandomOriginalLanguage = () => {
     const randomBinaryNumber = getRandomInt(2);
     return randomBinaryNumber === 1;
-  };
-
-  const getRandomSentence = async (spanishWord: string) => {
-    const searchFor = " " + spanishWord.toLowerCase() + " ";
-    await wiki.setLang("es");
-    let page = await wiki.page("Anexo:Redes LTE");
-    let content = await page.content();
-    let links = await page.links();
-
-    while (!content.toLowerCase().includes(searchFor)) {
-      const randomLinkIndex = getRandomInt(links.length);
-      const randomLink = links[randomLinkIndex];
-
-      try {
-        page = await wiki.page(randomLink);
-        content = await page.content();
-        links = await page.links();
-
-        console.log({
-          page,
-          content,
-        });
-      } catch (e) {
-        console.log("error occured while searching for a sentence");
-      }
-    }
-
-    const exampleIndex = content.toLowerCase().indexOf(searchFor);
-    const endOfSentencePeriod = content
-      .toLowerCase()
-      .indexOf(".", exampleIndex);
-    const endOfSentenceComma = content.toLowerCase().indexOf(",", exampleIndex);
-    const endOfSentence = Math.min(endOfSentenceComma, endOfSentencePeriod);
-
-    const firstIndexOfPeriod = content
-      .toLowerCase()
-      .substring(0, exampleIndex)
-      .lastIndexOf(".");
-    const firstIndexOfComma = content
-      .toLowerCase()
-      .substring(0, exampleIndex)
-      .lastIndexOf(",");
-    const firstIndex = Math.max(firstIndexOfPeriod, firstIndexOfComma);
-    const randomSentence = content.substring(firstIndex + 1, endOfSentence);
-    console.log({ randomSentence });
-    return randomSentence;
-  };
-
-  const loadRandomSentence = async () => {
-    setIsLoadingSentence(true);
-    const randomSentence = await getRandomSentence(
-      shuffledWords[currentWordIndex].spanish
-    );
-    console.log({
-      word: shuffledWords[currentWordIndex].spanish,
-      sentence: randomSentence,
-    });
-    setExampleSentence(randomSentence);
-    setIsLoadingSentence(false);
   };
 
   const changeToNextWord = async () => {
@@ -197,21 +138,11 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
         selectedLearningOption === LearningOption.NEW) && (
         <div className="translationBox">
           <div className="translationWord">{translationWord}</div>
-          <div>
-            {!isLoadingSentence && (
-              <div className="exampleSentence" onClick={loadRandomSentence}>
-                <div className="exampleSentenceRandomBtn">
-                  <FaDice />
-                </div>
-                {exampleSentence ?? "Click to get example sentence"}
-              </div>
-            )}
-            {isLoadingSentence && (
-              <div className="exampleSentenceLoader">
-                <ClipLoader size={11} color="#36d7b7" />
-              </div>
-            )}
-          </div>
+          <ExampleSentence
+            spanishWord={shuffledWords[currentWordIndex].spanish}
+            exampleSentence={exampleSentence}
+            setExampleSentence={setExampleSentence}
+          />
         </div>
       )}
       {isTranslationHidden && selectedLearningOption !== LearningOption.NEW && (
