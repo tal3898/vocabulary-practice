@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { FaDice } from "react-icons/fa";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
@@ -8,6 +9,7 @@ import { Word } from "../models/word";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
 import wiki from "wikipedia";
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface Props {
   wordsList: Word[];
@@ -31,6 +33,10 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   );
   const [isSoundOn, setIsSoundOn] = useState(false);
   const [shuffledWords, setShuffledWords] = useState(wordsList);
+  const [exampleSentence, setExampleSentence] = useState<string | undefined>(
+    undefined
+  );
+  const [isLoadingSentence, setIsLoadingSentence] = useState(false);
 
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
@@ -72,7 +78,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     let page = await wiki.page("Batman");
     let content = await page.content();
     let links = await page.links();
-    debugger;
+
     while (!content.toLowerCase().includes(spanishWord.toLowerCase())) {
       const randomLinkIndex = getRandomInt(links.length);
       const randomLink = links[randomLinkIndex];
@@ -110,8 +116,20 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     return randomSentence;
   };
 
+  const loadRandomSentence = async () => {
+    setIsLoadingSentence(true);
+    const randomSentence = await getRandomSentence(
+      shuffledWords[currentWordIndex].spanish
+    );
+    console.log({
+      word: shuffledWords[currentWordIndex].spanish,
+      sentence: randomSentence,
+    });
+    setExampleSentence(randomSentence);
+    setIsLoadingSentence(false);
+  };
+
   const changeToNextWord = async () => {
-    const randomSentence = await getRandomSentence("Castigo");
     let isNextWordSpanish = fromLanguage === OriginalLanguage.SPANISH;
     if (fromLanguage === OriginalLanguage.RANDOM) {
       const isEnglish = getRandomOriginalLanguage();
@@ -128,6 +146,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     }
     setCurrentWordIndex(nextWordIndex);
     setIsTranslationHidden(true);
+    setExampleSentence(undefined);
 
     if (
       isSoundOn &&
@@ -173,7 +192,24 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       <p className="originalWord">{originalWord}</p>
       {(!isTranslationHidden ||
         selectedLearningOption === LearningOption.NEW) && (
-        <p className="translationWord">{translationWord}</p>
+        <div className="translationBox">
+          <div className="translationWord">{translationWord}</div>
+          <div className="exampleSentence" onClick={loadRandomSentence}>
+            {!isLoadingSentence && (
+              <>
+                <div className="exampleSentenceRandomBtn">
+                  <FaDice />
+                </div>
+                {exampleSentence ?? "Click to get example sentence"}
+              </>
+            )}
+            {isLoadingSentence && (
+              <>
+                <ClipLoader size={11} color="#36d7b7" />
+              </>
+            )}
+          </div>
+        </div>
       )}
       {isTranslationHidden && selectedLearningOption !== LearningOption.NEW && (
         <p className="revealButton" onClick={revealTranslation}>
