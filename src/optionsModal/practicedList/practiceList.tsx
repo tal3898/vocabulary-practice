@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CgRemove } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { Word } from "../../models/word";
