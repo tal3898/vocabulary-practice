@@ -128,11 +128,11 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
         selectedLearningOption === LearningOption.NEW) && (
         <div className="translationBox">
           <div className="translationWord">{translationWord}</div>
-          <ExampleSentence
+         {/* <ExampleSentence
             spanishWord={shuffledWords[currentWordIndex].spanish}
             exampleSentence={exampleSentence}
             setExampleSentence={setExampleSentence}
-          />
+          /> */}
         </div>
       )}
       {isTranslationHidden && selectedLearningOption !== LearningOption.NEW && (
