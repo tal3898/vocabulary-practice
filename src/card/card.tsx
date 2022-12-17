@@ -5,6 +5,7 @@ import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
+import { getRandomInt, getShuffledList } from "../utils/randomFuncs";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
 import { ExampleSentence } from "./exampleSentence/exampleSentence";
@@ -14,14 +15,6 @@ interface Props {
   fromLanguage: OriginalLanguage;
   selectedLearningOption: LearningOption;
 }
-
-const getRandomInt = (max: number) => {
-  return Math.floor(Math.random() * max);
-};
-
-const getShuffledList = (list: any[]) => {
-  return [...list].sort(() => Math.random() - 0.5);
-};
 
 function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [isTranslationHidden, setIsTranslationHidden] = useState(true);

@@ -16,6 +16,7 @@ import {
   practiceListSelector,
   setPracticeList,
 } from "../stateManagement/practiceList";
+import { getShuffledList } from "../utils/randomFuncs";
 import { LearnedList } from "./learnedList/learnedList";
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
@@ -52,9 +53,13 @@ export const OptionsModal = ({
   const [errorText, setErrorText] = useState<undefined | string>();
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
+  const [amountToPractice, setAmountToPractice] = useState(5);
+
   const practiceWords = useSelector(practiceListSelector);
   const learnedList = useSelector(learnedListSelector);
+
   const dispatch = useDispatch();
+
   translate.engine = "google";
   const NEW_WORDS_GENERATOR_SIZE = 70;
 
@@ -79,7 +84,9 @@ export const OptionsModal = ({
 
   const savePracticedWords = async () => {
     if (practiceWords.length > 0) {
-      onChangeWordsList(practiceWords);
+      const shuffledPracticedList = getShuffledList(practiceWords);
+      const wordsToPractice = shuffledPracticedList.slice(0, amountToPractice);
+      onChangeWordsList(wordsToPractice);
       setSelectedLearningOption(LearningOption.PRACTICE);
       setIsOpen(false);
       setErrorText(undefined);
@@ -249,7 +256,12 @@ export const OptionsModal = ({
               <div style={{ margin: "auto" }}>Learn New Words!</div>
             )}
             {selectedOption === LearningOption.PRACTICE &&
-              practiceWords.length > 0 && <PracticeList />}
+              practiceWords.length > 0 && (
+                <PracticeList
+                  amountToPractice={amountToPractice}
+                  setAmountToPractice={setAmountToPractice}
+                />
+              )}
             {selectedOption === LearningOption.KNOW &&
               practiceWords.length > 0 && <LearnedList />}
           </div>

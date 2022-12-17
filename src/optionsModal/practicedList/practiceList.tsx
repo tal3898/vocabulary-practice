@@ -8,9 +8,16 @@ import {
 } from "../../stateManagement/practiceList";
 import "./practiceList.css";
 
-export const PracticeList = () => {
+interface Props {
+  amountToPractice: number;
+  setAmountToPractice: (amount: number) => void;
+}
+
+export const PracticeList = ({
+  amountToPractice,
+  setAmountToPractice,
+}: Props) => {
   const practiceWords = useSelector(practiceListSelector);
-  const [amountToPractice, setAmountToPractice] = useState(5);
 
   const dispatch = useDispatch();
 
