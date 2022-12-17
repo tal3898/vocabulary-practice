@@ -35,7 +35,7 @@ export const PracticeList = ({
   return (
     <div className="practiceBox">
       <div className="amountOption">
-        <div>choose the number of words to practie with</div>
+        <div>practice words count</div>
         <input
           value={amountToPractice}
           onChange={(e) => setAmountToPractice(+e.target.value)}

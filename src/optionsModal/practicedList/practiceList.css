@@ -10,6 +10,7 @@
 
 .amountOption {
   display: flex;
+  margin-bottom: 3px;
 }
 
 .amountInput {
