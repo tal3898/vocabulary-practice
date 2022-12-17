@@ -8,7 +8,6 @@ import { Word } from "../models/word";
 import { getRandomInt, getShuffledList } from "../utils/randomFuncs";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
-import { ExampleSentence } from "./exampleSentence/exampleSentence";
 
 interface Props {
   wordsList: Word[];
