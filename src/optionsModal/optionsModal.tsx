@@ -206,21 +206,21 @@ export const OptionsModal = ({
               isSelecteed={selectedOption === LearningOption.PRACTICE}
               reactIcon={GiStrongMan}
               setSelectedOption={setSelectedOption}
-              text="Practice"
+              text="Train"
             />
             <OptionItem
               optionType={LearningOption.CUSTOM}
               isSelecteed={selectedOption === LearningOption.CUSTOM}
               reactIcon={FaEdit}
               setSelectedOption={setSelectedOption}
-              text="Custom"
+              text="Set"
             />
             <OptionItem
               optionType={LearningOption.KNOW}
               isSelecteed={selectedOption === LearningOption.KNOW}
               reactIcon={BiMemoryCard}
               setSelectedOption={setSelectedOption}
-              text="Learned"
+              text="Know"
             />
           </div>
           <div style={{ display: "flex", height: "74%" }}>
