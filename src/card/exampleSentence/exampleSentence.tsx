@@ -3,6 +3,8 @@ import { FaDice } from "react-icons/fa";
 import ClipLoader from "react-spinners/ClipLoader";
 import wiki from "wikipedia";
 import "./exampleSentence.css";
+import FormData from "form-data";
+import axios from "axios";
 
 interface Props {
   spanishWord: string;
@@ -85,10 +87,32 @@ export const ExampleSentence = ({
     setIsLoadingSentence(false);
   };
 
+  const randomSentenceApi = async () => {
+    debugger;
+    const bodyFormData = new FormData();
+    bodyFormData.append("lang", "es");
+    bodyFormData.append("contain", "calidad");
+    bodyFormData.append("quantity", 6);
+
+    const config = {
+      withCredentials: false,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    const response = await axios.post(
+      "https://www.coolgenerator.com/random-sentence-generator",
+      bodyFormData,
+      config
+    );
+    console.log({ response });
+  };
+
   return (
     <div>
       {!isLoadingSentence && (
-        <div className="exampleSentence" onClick={loadRandomSentence}>
+        <div className="exampleSentence" onClick={randomSentenceApi}>
           <div className="exampleSentenceRandomBtn">
             <FaDice />
           </div>
