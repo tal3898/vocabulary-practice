@@ -5,7 +5,9 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
+import { useState } from "react";
 import { LearningOption } from "../../models/learningOption";
+import { SubjectType } from "../../models/subjectType";
 import { Word } from "../../models/word";
 import "./subjectsOption.css";
 
@@ -13,7 +15,11 @@ interface Props {
   a: string;
 }
 
+const DEFAULT_SUBJECT = SubjectType.COLORS;
+
 export const SubjectsOption = ({ a }: Props) => {
+  const [selectedSubject, setSelectedSubject] = useState(DEFAULT_SUBJECT);
+
   return (
     <div>
       <div></div>
@@ -23,12 +29,24 @@ export const SubjectsOption = ({ a }: Props) => {
         </FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="female"
+          defaultValue={DEFAULT_SUBJECT}
           name="radio-buttons-group"
         >
-          <FormControlLabel value="female" control={<Radio />} label="Female" />
-          <FormControlLabel value="male" control={<Radio />} label="Male" />
-          <FormControlLabel value="other" control={<Radio />} label="Other" />
+          <FormControlLabel
+            value={SubjectType.COLORS}
+            control={<Radio />}
+            label="Colors"
+          />
+          <FormControlLabel
+            value={SubjectType.MONTHS}
+            control={<Radio />}
+            label="Months"
+          />
+          <FormControlLabel
+            value={SubjectType.DAYS}
+            control={<Radio />}
+            label="Days"
+          />
         </RadioGroup>
       </FormControl>
     </div>
