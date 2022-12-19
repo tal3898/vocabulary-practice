@@ -128,8 +128,6 @@ export const OptionsModal = ({
       }
     }
 
-    console.log("list");
-    console.log(JSON.stringify(finalWordsList));
     return finalWordsList;
   };
 
