@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import randomWords from "random-words";
 import { useState } from "react";
 import { AiOutlineClear, AiOutlinePlus, AiOutlineSave } from "react-icons/ai";
-import { BiMemoryCard } from "react-icons/bi";
+import { BiMemoryCard, BiCategoryAlt } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { GiPerspectiveDiceSixFacesRandom, GiStrongMan } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
@@ -148,6 +148,7 @@ export const OptionsModal = ({
     [LearningOption.CUSTOM]: saveCustomList,
     [LearningOption.NEW]: saveRandomList,
     [LearningOption.PRACTICE]: savePracticedWords,
+    [LearningOption.SUBJECTS]: savePracticedWords,
     [LearningOption.KNOW]: saveLearnedWords,
   };
 
@@ -214,6 +215,13 @@ export const OptionsModal = ({
               reactIcon={FaEdit}
               setSelectedOption={setSelectedOption}
               text="Set"
+            />
+            <OptionItem
+              optionType={LearningOption.SUBJECTS}
+              isSelecteed={selectedOption === LearningOption.SUBJECTS}
+              reactIcon={BiCategoryAlt}
+              setSelectedOption={setSelectedOption}
+              text="Subs"
             />
             <OptionItem
               optionType={LearningOption.KNOW}
