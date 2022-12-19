@@ -44,6 +44,11 @@ export const SubjectsOption = ({
             label="Days"
           />
           <FormControlLabel
+            value={SubjectType.NUMBERS}
+            control={<Radio />}
+            label="Numbers"
+          />
+          <FormControlLabel
             value={SubjectType.COLORS}
             control={<Radio />}
             label="Colors"

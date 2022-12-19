@@ -131,8 +131,8 @@ export const OptionsModal = ({
         englishTranslation !== undefined
       ) {
         finalWordsList.push({
-          english: englishTranslation,
-          spanish: spanishTranslation,
+          spanish: englishTranslation,
+          english: spanishTranslation,
         });
       }
     }

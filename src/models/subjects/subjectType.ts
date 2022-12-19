@@ -3,4 +3,5 @@ export enum SubjectType {
   MONTHS,
   DAYS,
   BODY_PARTS,
+  NUMBERS,
 }
