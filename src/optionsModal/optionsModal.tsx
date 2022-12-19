@@ -1,3 +1,10 @@
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import randomWords from "random-words";
@@ -21,6 +28,7 @@ import { LearnedList } from "./learnedList/learnedList";
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
 import { PracticeList } from "./practicedList/practiceList";
+import { SubjectsOption } from "./subjectsOption/subjectsOption";
 
 const style = {
   position: "absolute" as "absolute",
@@ -272,6 +280,10 @@ export const OptionsModal = ({
               )}
             {selectedOption === LearningOption.KNOW &&
               practiceWords.length > 0 && <LearnedList />}
+
+            {selectedOption === LearningOption.SUBJECTS && (
+              <SubjectsOption a="a" />
+            )}
           </div>
         </div>
         <div className="applyListButton">
