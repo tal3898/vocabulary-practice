@@ -57,7 +57,7 @@ export const OptionsModal = ({
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
   const [amountToPractice, setAmountToPractice] = useState(10);
-  const [selectedSubject, setSelectedSubject] = useState(SubjectType.COLORS);
+  const [selectedSubject, setSelectedSubject] = useState(SubjectType.MONTHS);
 
   const practiceWords = useSelector(practiceListSelector);
   const learnedList = useSelector(learnedListSelector);
