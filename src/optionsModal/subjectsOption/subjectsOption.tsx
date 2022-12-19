@@ -34,11 +34,6 @@ export const SubjectsOption = ({
           onChange={(e) => setSelectedSubject(+e.target.value)}
         >
           <FormControlLabel
-            value={SubjectType.COLORS}
-            control={<Radio />}
-            label="Colors"
-          />
-          <FormControlLabel
             value={SubjectType.MONTHS}
             control={<Radio />}
             label="Months"
@@ -47,6 +42,16 @@ export const SubjectsOption = ({
             value={SubjectType.DAYS}
             control={<Radio />}
             label="Days"
+          />
+          <FormControlLabel
+            value={SubjectType.COLORS}
+            control={<Radio />}
+            label="Colors"
+          />
+          <FormControlLabel
+            value={SubjectType.BODY_PARTS}
+            control={<Radio />}
+            label="Body Parts"
           />
         </RadioGroup>
       </FormControl>

@@ -1,0 +1,16 @@
+export const BODY_PARTS = [
+  { spanish: "cabeza", english: "head" },
+  { spanish: "pelo", english: "hair" },
+  { spanish: "cuello", english: "neck" },
+  { spanish: "pecho", english: "chest" },
+  { spanish: "brazo", english: "arm" },
+  { spanish: "dedo", english: "finger" },
+  { spanish: "pie", english: "foot" },
+  { spanish: "cara", english: "face" },
+  { spanish: " ojo", english: "eye" },
+  { spanish: "mano", english: "hand" },
+  { spanish: "nariz", english: "nose" },
+  { spanish: "boca", english: "mouth" },
+  { spanish: "pierna", english: "leg" },
+  { spanish: "rodilla", english: "knee" },
+];
