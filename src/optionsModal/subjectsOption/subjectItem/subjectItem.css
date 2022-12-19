@@ -1,3 +1,7 @@
+.subjectItemContainer {
+  display: flex;
+}
+
 .radioIcon {
   margin-right: 5px;
   margin-top: 2px;

@@ -15,6 +15,7 @@ import { HiCalendar } from "react-icons/hi";
 import { WiDaySunny } from "react-icons/wi";
 import { VscSymbolColor } from "react-icons/vsc";
 import { IoIosMan } from "react-icons/io";
+import { SubjectItem } from "./subjectItem/subjectItem";
 
 interface Props {
   selectedSubject: SubjectType;
@@ -44,52 +45,27 @@ export const SubjectsOption = ({
           <FormControlLabel
             value={SubjectType.MONTHS}
             control={<Radio />}
-            label={
-              <>
-                <HiCalendar size={20} className="radioIcon" />
-                Months
-              </>
-            }
+            label={<SubjectItem icon={HiCalendar} text={"Months"} />}
           />
           <FormControlLabel
             value={SubjectType.DAYS}
             control={<Radio />}
-            label={
-              <>
-                <WiDaySunny size={20} className="radioIcon" />
-                Days
-              </>
-            }
+            label={<SubjectItem icon={WiDaySunny} text={"Days"} />}
           />
           <FormControlLabel
             value={SubjectType.NUMBERS}
             control={<Radio />}
-            label={
-              <>
-                <TbNumbers size={20} className="radioIcon" />
-                Numbers
-              </>
-            }
+            label={<SubjectItem icon={TbNumbers} text={"Numbers"} />}
           />
           <FormControlLabel
             value={SubjectType.COLORS}
             control={<Radio />}
-            label={
-              <>
-                <VscSymbolColor size={20} className="radioIcon" />
-                Colors
-              </>
-            }
+            label={<SubjectItem icon={VscSymbolColor} text={"Colors"} />}
           />
           <FormControlLabel
             value={SubjectType.BODY_PARTS}
             control={<Radio />}
-            label={
-              <>
-                <IoIosMan size={20} className="radioIcon" />
-                Body parts
-              </>
-            }
+            label={<SubjectItem icon={IoIosMan} text={"Body Parts"} />}
           />
         </RadioGroup>
       </FormControl>
