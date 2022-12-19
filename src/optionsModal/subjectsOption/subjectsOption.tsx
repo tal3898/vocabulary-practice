@@ -38,7 +38,7 @@ export const SubjectsOption = ({
             color: "rgba(0, 0, 0, 0.6)",
           }}
         >
-          Choose the subject to practice with
+          Choose the subject to practice on
         </FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
