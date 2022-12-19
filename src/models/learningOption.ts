@@ -3,4 +3,5 @@ export enum LearningOption {
   PRACTICE,
   CUSTOM,
   KNOW,
+  // SUBJECTS,
 }

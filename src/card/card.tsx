@@ -127,7 +127,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
         selectedLearningOption === LearningOption.NEW) && (
         <div className="translationBox">
           <div className="translationWord">{translationWord}</div>
-         {/* <ExampleSentence
+          {/* <ExampleSentence
             spanishWord={shuffledWords[currentWordIndex].spanish}
             exampleSentence={exampleSentence}
             setExampleSentence={setExampleSentence}
@@ -135,11 +135,11 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
         </div>
       )}
       {isTranslationHidden && selectedLearningOption !== LearningOption.NEW && (
-        <p className="revealButton" onClick={revealTranslation}>
+        <div className="revealButton" onClick={revealTranslation}>
           reveal
-        </p>
+        </div>
       )}
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", marginTop: "auto" }}>
         <div style={{ marginLeft: "auto", marginRight: "auto" }}>
           <CardActionsButtons word={shuffledWords[currentWordIndex]} />
         </div>
