@@ -17,7 +17,10 @@ import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import translate from "translate";
 import { LearningOption } from "../models/learningOption";
-import { DEFAULT_SUBJECT } from "../models/subjects/subjectsListsMap";
+import {
+  DEFAULT_SUBJECT,
+  SUBJECT_LIST,
+} from "../models/subjects/subjectsListsMap";
 import { Word } from "../models/word";
 import { learnedListSelector } from "../stateManagement/learnedList";
 import {
@@ -156,11 +159,19 @@ export const OptionsModal = ({
     }
   };
 
+  const saveSubjectsList = () => {
+    const clientWordsList = SUBJECT_LIST[selectedSubject];
+    onChangeWordsList(clientWordsList);
+    setSelectedLearningOption(LearningOption.SUBJECTS);
+    setIsOpen(false);
+    setErrorText(undefined);
+  };
+
   const learningHandlers = {
     [LearningOption.CUSTOM]: saveCustomList,
     [LearningOption.NEW]: saveRandomList,
     [LearningOption.PRACTICE]: savePracticedWords,
-    [LearningOption.SUBJECTS]: savePracticedWords,
+    [LearningOption.SUBJECTS]: saveSubjectsList,
     [LearningOption.KNOW]: saveLearnedWords,
   };
 
