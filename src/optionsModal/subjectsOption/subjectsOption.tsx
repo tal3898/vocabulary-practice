@@ -32,7 +32,11 @@ export const SubjectsOption = ({
       <FormControl>
         <FormLabel
           id="subject-radios"
-          style={{ fontSize: 20, marginBottom: 10 }}
+          style={{
+            fontSize: 20,
+            marginBottom: 10,
+            color: "rgba(0, 0, 0, 0.6)",
+          }}
         >
           Choose the subject to practice with
         </FormLabel>

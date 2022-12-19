@@ -1,26 +1,17 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import randomWords from "random-words";
 import { useState } from "react";
 import { AiOutlineClear, AiOutlinePlus, AiOutlineSave } from "react-icons/ai";
-import { BiMemoryCard, BiCategoryAlt } from "react-icons/bi";
+import { BiCategoryAlt, BiMemoryCard } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { GiPerspectiveDiceSixFacesRandom, GiStrongMan } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import translate from "translate";
 import { LearningOption } from "../models/learningOption";
-import {
-  DEFAULT_SUBJECT,
-  SUBJECT_LIST,
-} from "../models/subjects/subjectsListsMap";
+import { SUBJECT_LIST_MAP } from "../models/subjects/subjectsListsMap";
+import { SubjectType } from "../models/subjects/subjectType";
 import { Word } from "../models/word";
 import { learnedListSelector } from "../stateManagement/learnedList";
 import {
@@ -66,7 +57,7 @@ export const OptionsModal = ({
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
   const [amountToPractice, setAmountToPractice] = useState(10);
-  const [selectedSubject, setSelectedSubject] = useState(DEFAULT_SUBJECT);
+  const [selectedSubject, setSelectedSubject] = useState(SubjectType.COLORS);
 
   const practiceWords = useSelector(practiceListSelector);
   const learnedList = useSelector(learnedListSelector);
@@ -160,7 +151,7 @@ export const OptionsModal = ({
   };
 
   const saveSubjectsList = () => {
-    const clientWordsList = SUBJECT_LIST[selectedSubject];
+    const clientWordsList = SUBJECT_LIST_MAP[selectedSubject];
     onChangeWordsList(clientWordsList);
     setSelectedLearningOption(LearningOption.SUBJECTS);
     setIsOpen(false);
