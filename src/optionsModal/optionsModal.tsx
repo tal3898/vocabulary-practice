@@ -226,14 +226,14 @@ export const OptionsModal = ({
               isSelecteed={selectedOption === LearningOption.CUSTOM}
               reactIcon={FaEdit}
               setSelectedOption={setSelectedOption}
-              text="Set"
+              text="Custom"
             />
             <OptionItem
               optionType={LearningOption.SUBJECTS}
               isSelecteed={selectedOption === LearningOption.SUBJECTS}
               reactIcon={BiCategoryAlt}
               setSelectedOption={setSelectedOption}
-              text="Subs"
+              text="Subjects"
             />
             <OptionItem
               optionType={LearningOption.KNOW}

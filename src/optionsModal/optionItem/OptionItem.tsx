@@ -22,7 +22,7 @@ export const OptionItem = ({
       className="specificPracticeOption"
       onClick={() => setSelectedOption(optionType)}
       style={{
-        backgroundColor: isSelecteed ? "rgb(140, 140, 140)" : undefined,
+        color: isSelecteed ? "rgb(98 98 98)" : undefined,
       }}
     >
       <Icon size={40} className="optionIcon" />
