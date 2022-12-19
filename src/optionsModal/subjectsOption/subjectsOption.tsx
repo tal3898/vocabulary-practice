@@ -7,19 +7,19 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { LearningOption } from "../../models/learningOption";
-import { SubjectType } from "../../models/subjectType";
+import { SubjectType } from "../../models/subjects/subjectType";
 import { Word } from "../../models/word";
 import "./subjectsOption.css";
 
 interface Props {
-  a: string;
+  selectedSubject: SubjectType;
+  setSelectedSubject: (type: SubjectType) => void;
 }
 
-const DEFAULT_SUBJECT = SubjectType.COLORS;
-
-export const SubjectsOption = ({ a }: Props) => {
-  const [selectedSubject, setSelectedSubject] = useState(DEFAULT_SUBJECT);
-
+export const SubjectsOption = ({
+  selectedSubject,
+  setSelectedSubject,
+}: Props) => {
   return (
     <div>
       <div></div>
@@ -29,8 +29,9 @@ export const SubjectsOption = ({ a }: Props) => {
         </FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue={DEFAULT_SUBJECT}
           name="radio-buttons-group"
+          value={selectedSubject}
+          onChange={(e) => setSelectedSubject(+e.target.value)}
         >
           <FormControlLabel
             value={SubjectType.COLORS}

@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import translate from "translate";
 import { LearningOption } from "../models/learningOption";
+import { DEFAULT_SUBJECT } from "../models/subjects/subjectsListsMap";
 import { Word } from "../models/word";
 import { learnedListSelector } from "../stateManagement/learnedList";
 import {
@@ -62,6 +63,7 @@ export const OptionsModal = ({
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
   const [amountToPractice, setAmountToPractice] = useState(10);
+  const [selectedSubject, setSelectedSubject] = useState(DEFAULT_SUBJECT);
 
   const practiceWords = useSelector(practiceListSelector);
   const learnedList = useSelector(learnedListSelector);
@@ -132,6 +134,8 @@ export const OptionsModal = ({
       }
     }
 
+    console.log("list");
+    console.log(JSON.stringify(finalWordsList));
     return finalWordsList;
   };
 
@@ -282,7 +286,10 @@ export const OptionsModal = ({
               practiceWords.length > 0 && <LearnedList />}
 
             {selectedOption === LearningOption.SUBJECTS && (
-              <SubjectsOption a="a" />
+              <SubjectsOption
+                selectedSubject={selectedSubject}
+                setSelectedSubject={setSelectedSubject}
+              />
             )}
           </div>
         </div>
