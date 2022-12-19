@@ -10,6 +10,11 @@ import { LearningOption } from "../../models/learningOption";
 import { SubjectType } from "../../models/subjects/subjectType";
 import { Word } from "../../models/word";
 import "./subjectsOption.css";
+import { TbNumbers } from "react-icons/tb";
+import { HiCalendar } from "react-icons/hi";
+import { WiDaySunny } from "react-icons/wi";
+import { VscSymbolColor } from "react-icons/vsc";
+import { IoIosMan } from "react-icons/io";
 
 interface Props {
   selectedSubject: SubjectType;
@@ -24,7 +29,10 @@ export const SubjectsOption = ({
     <div>
       <div></div>
       <FormControl>
-        <FormLabel id="subject-radios">
+        <FormLabel
+          id="subject-radios"
+          style={{ fontSize: 20, marginBottom: 10 }}
+        >
           Choose the subject to practice with
         </FormLabel>
         <RadioGroup
@@ -36,27 +44,52 @@ export const SubjectsOption = ({
           <FormControlLabel
             value={SubjectType.MONTHS}
             control={<Radio />}
-            label="Months"
+            label={
+              <>
+                <HiCalendar size={20} className="radioIcon" />
+                Months
+              </>
+            }
           />
           <FormControlLabel
             value={SubjectType.DAYS}
             control={<Radio />}
-            label="Days"
+            label={
+              <>
+                <WiDaySunny size={20} className="radioIcon" />
+                Days
+              </>
+            }
           />
           <FormControlLabel
             value={SubjectType.NUMBERS}
             control={<Radio />}
-            label="Numbers"
+            label={
+              <>
+                <TbNumbers size={20} className="radioIcon" />
+                Numbers
+              </>
+            }
           />
           <FormControlLabel
             value={SubjectType.COLORS}
             control={<Radio />}
-            label="Colors"
+            label={
+              <>
+                <VscSymbolColor size={20} className="radioIcon" />
+                Colors
+              </>
+            }
           />
           <FormControlLabel
             value={SubjectType.BODY_PARTS}
             control={<Radio />}
-            label="Body Parts"
+            label={
+              <>
+                <IoIosMan size={20} className="radioIcon" />
+                Body parts
+              </>
+            }
           />
         </RadioGroup>
       </FormControl>
