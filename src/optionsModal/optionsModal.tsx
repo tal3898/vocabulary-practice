@@ -13,6 +13,7 @@ import { useState } from "react";
 import { AiOutlineClear, AiOutlinePlus, AiOutlineSave } from "react-icons/ai";
 import { BiCategoryAlt, BiMemoryCard } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
+import { CiExport } from "react-icons/ci";
 import { GiPerspectiveDiceSixFacesRandom, GiStrongMan } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -330,6 +331,14 @@ export const OptionsModal = ({
             <div style={{ fontSize: 13, marginTop: 5 }}>
               ({practiceWords.length})
             </div>
+          </div>
+        )}
+        {selectedOption === LearningOption.PRACTICE && (
+          <div
+            className="extraActionButton2"
+            onClick={() => setIsWarningOpen(true)}
+          >
+            <CiExport size={30} />
           </div>
         )}
         <Dialog
