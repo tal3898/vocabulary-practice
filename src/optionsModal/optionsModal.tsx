@@ -27,6 +27,7 @@ import {
   setPracticeList,
 } from "../stateManagement/practiceList";
 import { getShuffledList } from "../utils/randomFuncs";
+import { isWordInList } from "../utils/wordsList";
 import { LearnedList } from "./learnedList/learnedList";
 import { OptionItem } from "./optionItem/OptionItem";
 import "./optionsModal.css";
@@ -183,9 +184,8 @@ export const OptionsModal = ({
     const newPracticedWordsList = [...practiceWords];
     for (const newWord of clientWordsList) {
       if (
-        !newPracticedWordsList.some(
-          (word: Word) => word.english === newWord.english
-        )
+        !isWordInList(newWord, newPracticedWordsList) &&
+        !isWordInList(newWord, learnedList)
       ) {
         newPracticedWordsList.push(newWord);
       }
