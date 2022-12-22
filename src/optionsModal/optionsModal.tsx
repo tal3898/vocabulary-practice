@@ -66,7 +66,7 @@ export const OptionsModal = ({
   const [errorText, setErrorText] = useState<undefined | string>();
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
-  const [amountToPractice, setAmountToPractice] = useState(10);
+  const [amountToPractice, setAmountToPractice] = useState(15);
   const [selectedSubject, setSelectedSubject] = useState(SubjectType.MONTHS);
   const [isWarningOpen, setIsWarningOpen] = useState(false);
 
