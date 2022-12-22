@@ -1,3 +1,11 @@
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import randomWords from "random-words";
@@ -58,6 +66,7 @@ export const OptionsModal = ({
   const [isLoading, setIsLoading] = useState(false);
   const [amountToPractice, setAmountToPractice] = useState(10);
   const [selectedSubject, setSelectedSubject] = useState(SubjectType.MONTHS);
+  const [isWarningOpen, setIsWarningOpen] = useState(false);
 
   const practiceWords = useSelector(practiceListSelector);
   const learnedList = useSelector(learnedListSelector);
@@ -187,6 +196,7 @@ export const OptionsModal = ({
 
   const clearPracticeWordsList = () => {
     dispatch(setPracticeList([]));
+    setIsWarningOpen(false);
   };
 
   const onClose = () => {
@@ -312,13 +322,37 @@ export const OptionsModal = ({
           </div>
         )}
         {selectedOption === LearningOption.PRACTICE && (
-          <div className="extraActionButton" onClick={clearPracticeWordsList}>
+          <div
+            className="extraActionButton"
+            onClick={() => setIsWarningOpen(true)}
+          >
             <AiOutlineClear size={30} />
             <div style={{ fontSize: 13, marginTop: 5 }}>
               ({practiceWords.length})
             </div>
           </div>
         )}
+        <Dialog
+          open={isWarningOpen}
+          onClose={() => setIsWarningOpen(false)}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Are you sure you want to clear all the words?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              When clearing and removing all the words you won't be able to
+              recover them
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={clearPracticeWordsList} autoFocus>
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
         <div
           style={{ visibility: errorText !== undefined ? "visible" : "hidden" }}
           className="errorText"
