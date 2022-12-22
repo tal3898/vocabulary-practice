@@ -167,6 +167,13 @@ export const OptionsModal = ({
     setErrorText(undefined);
   };
 
+  const exportPracticeList = () => {
+    const allWordsAsText = practiceWords
+      .map((word: Word) => word.spanish + " - " + word.english)
+      .join("\r\n");
+    navigator.clipboard.writeText(allWordsAsText);
+  };
+
   const learningHandlers = {
     [LearningOption.CUSTOM]: saveCustomList,
     [LearningOption.NEW]: saveRandomList,
@@ -334,10 +341,7 @@ export const OptionsModal = ({
           </div>
         )}
         {selectedOption === LearningOption.PRACTICE && (
-          <div
-            className="extraActionButton2"
-            onClick={() => setIsWarningOpen(true)}
-          >
+          <div className="extraActionButton2" onClick={exportPracticeList}>
             <CiExport size={30} />
           </div>
         )}
