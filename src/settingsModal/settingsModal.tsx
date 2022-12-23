@@ -6,6 +6,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { practiceListSelector } from "../stateManagement/practiceList";
 import {
@@ -21,13 +22,25 @@ interface Props {
 export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
   const amountToPractice = useSelector(practiceAmountSelector);
   const practiceWords = useSelector(practiceListSelector);
+  const [clientAmountToPractice, setClientAmountToPractice] =
+    useState(amountToPractice);
 
   const dispatch = useDispatch();
+
+  const saveSettings = () => {
+    dispatch(setPracticeAmount(clientAmountToPractice));
+    setIsOptionsOpen(false);
+  };
+
+  const cancelSettings = () => {
+    setClientAmountToPractice(amountToPractice);
+    setIsOptionsOpen(false);
+  };
 
   return (
     <Dialog
       open={isOptionsOpen}
-      onClose={() => setIsOptionsOpen(false)}
+      onClose={cancelSettings}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -35,8 +48,8 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
       <DialogContent>
         <div>Number of words to practice on</div>
         <input
-          value={amountToPractice}
-          onChange={(e) => dispatch(setPracticeAmount(+e.target.value))}
+          value={clientAmountToPractice}
+          onChange={(e) => setClientAmountToPractice(+e.target.value)}
           className="amountInput"
           type="number"
           min="5"
@@ -44,7 +57,7 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setIsOptionsOpen(false)}>Save</Button>
+        <Button onClick={saveSettings}>Save</Button>
       </DialogActions>
     </Dialog>
   );
