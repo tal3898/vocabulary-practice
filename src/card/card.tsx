@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
+import { useSelector } from "react-redux";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
+import { isRevealEnabledSelected } from "../stateManagement/revealOption";
 import { getRandomInt, getShuffledList } from "../utils/randomFuncs";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
@@ -26,6 +28,8 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [exampleSentence, setExampleSentence] = useState<string | undefined>(
     undefined
   );
+
+  const isRevealEnabled = useSelector(isRevealEnabledSelected);
 
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
@@ -124,7 +128,8 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       </div>
       <p className="originalWord">{originalWord}</p>
       {(!isTranslationHidden ||
-        selectedLearningOption === LearningOption.NEW) && (
+        selectedLearningOption === LearningOption.NEW ||
+        !isRevealEnabled) && (
         <div className="translationBox">
           <div className="translationWord">{translationWord}</div>
           {/* <ExampleSentence
@@ -134,11 +139,13 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           /> */}
         </div>
       )}
-      {isTranslationHidden && selectedLearningOption !== LearningOption.NEW && (
-        <div className="revealButton" onClick={revealTranslation}>
-          reveal
-        </div>
-      )}
+      {isTranslationHidden &&
+        selectedLearningOption !== LearningOption.NEW &&
+        isRevealEnabled && (
+          <div className="revealButton" onClick={revealTranslation}>
+            reveal
+          </div>
+        )}
       <div style={{ display: "flex", marginTop: "auto" }}>
         <div style={{ marginLeft: "auto", marginRight: "auto" }}>
           <CardActionsButtons word={shuffledWords[currentWordIndex]} />
