@@ -121,7 +121,7 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
           />
         </div>
         <div className="optionItemToChange">
-          <div>Enable reveal button</div>
+          <div className="enableRevealOptionTitle">Enable reveal button</div>
           <Switch
             checked={isRevealChecked}
             onChange={(e) => setIsRevealChecked(e.target.checked)}

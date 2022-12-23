@@ -9,6 +9,12 @@
   width: 40px;
 }
 
+.enableRevealOptionTitle {
+  height: fit-content;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .wordsToAddTitle {
   display: flex;
 }
