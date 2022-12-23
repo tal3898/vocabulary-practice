@@ -34,6 +34,7 @@ import { OptionItem } from "./optionItem/OptionItem";
 import "./catalogModal.css";
 import { PracticeList } from "./practicedList/practiceList";
 import { SubjectsOption } from "./subjectsOption/subjectsOption";
+import { practiceAmountSelector } from "../stateManagement/practiceWordsAmount";
 
 const style = {
   position: "absolute" as "absolute",
@@ -66,12 +67,12 @@ export const CatalogModal = ({
   const [errorText, setErrorText] = useState<undefined | string>();
   const [selectedOption, setSelectedOption] = useState(selectedLearningOption);
   const [isLoading, setIsLoading] = useState(false);
-  const [amountToPractice, setAmountToPractice] = useState(15);
   const [selectedSubject, setSelectedSubject] = useState(SubjectType.MONTHS);
   const [isWarningOpen, setIsWarningOpen] = useState(false);
 
   const practiceWords = useSelector(practiceListSelector);
   const learnedList = useSelector(learnedListSelector);
+  const amountToPractice = useSelector(practiceAmountSelector);
 
   const dispatch = useDispatch();
 
@@ -294,12 +295,7 @@ export const CatalogModal = ({
               <div style={{ margin: "auto" }}>Learn New Words!</div>
             )}
             {selectedOption === LearningOption.PRACTICE &&
-              practiceWords.length > 0 && (
-                <PracticeList
-                  amountToPractice={amountToPractice}
-                  setAmountToPractice={setAmountToPractice}
-                />
-              )}
+              practiceWords.length > 0 && <PracticeList />}
             {selectedOption === LearningOption.KNOW &&
               practiceWords.length > 0 && <LearnedList />}
 

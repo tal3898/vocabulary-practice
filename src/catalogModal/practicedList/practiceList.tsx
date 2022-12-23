@@ -7,15 +7,7 @@ import {
 } from "../../stateManagement/practiceList";
 import "./practiceList.css";
 
-interface Props {
-  amountToPractice: number;
-  setAmountToPractice: (amount: number) => void;
-}
-
-export const PracticeList = ({
-  amountToPractice,
-  setAmountToPractice,
-}: Props) => {
+export const PracticeList = () => {
   const practiceWords = useSelector(practiceListSelector);
 
   const dispatch = useDispatch();
@@ -33,17 +25,6 @@ export const PracticeList = ({
 
   return (
     <div className="practiceBox">
-      <div className="amountOption">
-        <div>practice words count</div>
-        <input
-          value={amountToPractice}
-          onChange={(e) => setAmountToPractice(+e.target.value)}
-          className="amountInput"
-          type="number"
-          min="5"
-          max={practiceWords.length}
-        />
-      </div>
       <div className="practicedWordsList">
         {practiceWords.map((item: Word) => (
           <div key={item.english} className="practicedWordItem">
