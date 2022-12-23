@@ -31,7 +31,7 @@ import { getShuffledList } from "../utils/randomFuncs";
 import { isWordInList } from "../utils/wordsList";
 import { LearnedList } from "./learnedList/learnedList";
 import { OptionItem } from "./optionItem/OptionItem";
-import "./optionsModal.css";
+import "./catalogModal.css";
 import { PracticeList } from "./practicedList/practiceList";
 import { SubjectsOption } from "./subjectsOption/subjectsOption";
 
@@ -55,7 +55,7 @@ interface Props {
   setSelectedLearningOption: (option: LearningOption) => void;
 }
 
-export const OptionsModal = ({
+export const CatalogModal = ({
   selectedLearningOption,
   setSelectedLearningOption,
   onChangeWordsList,
