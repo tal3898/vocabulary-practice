@@ -13,6 +13,7 @@ import {
   practiceAmountSelector,
   setPracticeAmount,
 } from "../stateManagement/practiceWordsAmount";
+import "./settingsModal.css";
 
 interface Props {
   isOptionsOpen: boolean;
@@ -46,15 +47,17 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
     >
       <DialogTitle id="alert-dialog-title">Settings</DialogTitle>
       <DialogContent>
-        <div>Number of words to practice on</div>
-        <input
-          value={clientAmountToPractice}
-          onChange={(e) => setClientAmountToPractice(+e.target.value)}
-          className="amountInput"
-          type="number"
-          min="5"
-          max={practiceWords.length}
-        />
+        <div className="amountOption">
+          <div>Number of words to practice on</div>
+          <input
+            value={clientAmountToPractice}
+            onChange={(e) => setClientAmountToPractice(+e.target.value)}
+            className="amountInput"
+            type="number"
+            min="5"
+            max={practiceWords.length}
+          />
+        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={saveSettings}>Save</Button>

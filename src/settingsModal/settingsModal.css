@@ -1,0 +1,9 @@
+.amountOption {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.amountInput {
+  margin-left: 10px;
+  width: 40px;
+}
