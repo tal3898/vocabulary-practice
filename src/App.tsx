@@ -18,6 +18,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { SettingsModal } from "./settingsModal/settingsModal";
 
 const stub = [
   {
@@ -81,27 +82,10 @@ function App() {
           setIsOpen={setOpen}
         />
 
-        <Dialog
-          open={isOptionsOpen}
-          onClose={() => setIsOptionsOpen(false)}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            Are you sure you want to clear all the words?
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              When clearing and removing all the words you won't be able to
-              recover them
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setIsOptionsOpen(false)} autoFocus>
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <SettingsModal
+          isOptionsOpen={isOptionsOpen}
+          setIsOptionsOpen={setIsOptionsOpen}
+        />
       </div>
     </Provider>
   );
