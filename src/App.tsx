@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IoMdSettings } from "react-icons/io";
+import { BiCategoryAlt } from "react-icons/bi";
 import translate from "translate";
 import "./App.css";
 import Card from "./card/card";
@@ -44,6 +45,9 @@ function App() {
         <div className="header">
           <div onClick={() => setOpen(true)} className="listButton">
             <IoMdSettings color="rgb(106 106 106)" size={40} />
+          </div>
+          <div onClick={() => setOpen(true)} className="listButton">
+            <BiCategoryAlt color="rgb(106 106 106)" size={40} />
           </div>
           <div
             onClick={() => changeOriginalLanguage()}
