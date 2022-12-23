@@ -8,3 +8,12 @@
   margin-left: 10px;
   width: 40px;
 }
+
+.wordsToAddTitle {
+  display: flex;
+}
+
+.addWordsButton {
+  padding-top: 2px;
+  cursor: pointer;
+}
