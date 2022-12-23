@@ -143,23 +143,6 @@ export const CatalogModal = ({
     return finalWordsList;
   };
 
-  const saveCustomList = () => {
-    try {
-      const clientWordsList: Word[] = getWordsListFromInput();
-
-      if (clientWordsList.length === 0) {
-        setErrorText("Not valid format");
-      } else {
-        onChangeWordsList(clientWordsList);
-        setSelectedLearningOption(LearningOption.CUSTOM);
-        setIsOpen(false);
-        setErrorText(undefined);
-      }
-    } catch (e) {
-      setErrorText("Error while reading text. Try again later");
-    }
-  };
-
   const saveSubjectsList = () => {
     const clientWordsList = SUBJECT_LIST_MAP[selectedSubject];
     onChangeWordsList(clientWordsList);
@@ -176,7 +159,6 @@ export const CatalogModal = ({
   };
 
   const learningHandlers = {
-    [LearningOption.CUSTOM]: saveCustomList,
     [LearningOption.NEW]: saveRandomList,
     [LearningOption.PRACTICE]: savePracticedWords,
     [LearningOption.SUBJECTS]: saveSubjectsList,
@@ -241,13 +223,6 @@ export const CatalogModal = ({
               text="Train"
             />
             <OptionItem
-              optionType={LearningOption.CUSTOM}
-              isSelecteed={selectedOption === LearningOption.CUSTOM}
-              reactIcon={FaEdit}
-              setSelectedOption={setSelectedOption}
-              text="Custom"
-            />
-            <OptionItem
               optionType={LearningOption.SUBJECTS}
               isSelecteed={selectedOption === LearningOption.SUBJECTS}
               reactIcon={BiCategoryAlt}
@@ -263,24 +238,6 @@ export const CatalogModal = ({
             />
           </div>
           <div style={{ display: "flex", height: "74%" }}>
-            {selectedOption === LearningOption.CUSTOM && (
-              <div style={{ width: "100%" }}>
-                <div style={{ marginBottom: 15, fontSize: 20 }}>
-                  List the words to practice
-                </div>
-
-                <div
-                  style={{ width: "100%", height: "15rem", paddingRight: 10 }}
-                >
-                  <textarea
-                    value={wordsInputText}
-                    onChange={(e) => setWordsInputText(e.target.value)}
-                    name="Text1"
-                    style={{ resize: "none", width: "100%", height: "100%" }}
-                  />
-                </div>
-              </div>
-            )}
             {selectedOption === LearningOption.PRACTICE &&
               practiceWords.length === 0 && (
                 <div style={{ margin: "auto" }}>
@@ -320,11 +277,6 @@ export const CatalogModal = ({
             </>
           )}
         </div>
-        {selectedOption === LearningOption.CUSTOM && (
-          <div className="extraActionButton" onClick={addCustomWordsToPractice}>
-            <AiOutlinePlus size={30} />
-          </div>
-        )}
         {selectedOption === LearningOption.PRACTICE && (
           <div
             className="extraActionButton"
