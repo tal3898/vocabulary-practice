@@ -1,4 +1,4 @@
-import { Word } from "../models/word";
+import { Word } from "../../models/word";
 
 const practiceKey = "practiceWords";
 

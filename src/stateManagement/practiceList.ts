@@ -4,7 +4,7 @@ import { Word } from "../models/word";
 import {
   getPracticeWords,
   savePracticeWords,
-} from "../utils/practiceLocalStorage";
+} from "../utils/localstorage/practiceLocalStorage";
 
 const initialPracticeList = getPracticeWords();
 

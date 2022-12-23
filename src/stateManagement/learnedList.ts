@@ -4,7 +4,7 @@ import { Word } from "../models/word";
 import {
   getLearnedWords,
   saveLearnedWords,
-} from "../utils/learnedLocalStorage";
+} from "../utils/localstorage/learnedLocalStorage";
 
 const initialList = getLearnedWords();
 

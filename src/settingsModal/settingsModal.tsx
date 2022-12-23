@@ -6,6 +6,12 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { practiceListSelector } from "../stateManagement/practiceList";
+import {
+  practiceAmountSelector,
+  setPracticeAmount,
+} from "../stateManagement/practiceWordsAmount";
 
 interface Props {
   isOptionsOpen: boolean;
@@ -13,6 +19,11 @@ interface Props {
 }
 
 export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
+  const amountToPractice = useSelector(practiceAmountSelector);
+  const practiceWords = useSelector(practiceListSelector);
+
+  const dispatch = useDispatch();
+
   return (
     <Dialog
       open={isOptionsOpen}
@@ -20,19 +31,20 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        Are you sure you want to clear all the words?
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">Settings</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          When clearing and removing all the words you won't be able to recover
-          them
-        </DialogContentText>
+        <div>Number of words to practice on</div>
+        <input
+          value={amountToPractice}
+          onChange={(e) => dispatch(setPracticeAmount(+e.target.value))}
+          className="amountInput"
+          type="number"
+          min="5"
+          max={practiceWords.length}
+        />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setIsOptionsOpen(false)} autoFocus>
-          Save
-        </Button>
+        <Button onClick={() => setIsOptionsOpen(false)}>Save</Button>
       </DialogActions>
     </Dialog>
   );
