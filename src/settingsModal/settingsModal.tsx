@@ -37,6 +37,7 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
   const isRevealEnabled = useSelector(isRevealEnabledSelected);
   const practiceWords = useSelector(practiceListSelector);
   const learnedList = useSelector(learnedListSelector);
+  const [isWarningOpen, setIsWarningOpen] = useState(false);
 
   const [addedWordsToPractice, setAddedWordsToPractice] = useState<
     number | undefined
@@ -99,6 +100,11 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
     setIsOptionsOpen(false);
   };
 
+  const clearPracticeWordsList = () => {
+    dispatch(setPracticeList([]));
+    setIsWarningOpen(false);
+  };
+
   return (
     <Dialog
       open={isOptionsOpen}
@@ -153,10 +159,38 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
             />
           </div>
         </div>
+        <div
+          className="clearPracticeBtn"
+          onClick={() => setIsWarningOpen(true)}
+        >
+          Clear all practice words ({practiceWords.length})
+        </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={saveSettings}>Save</Button>
       </DialogActions>
+
+      <Dialog
+        open={isWarningOpen}
+        onClose={() => setIsWarningOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Are you sure you want to clear all the words?
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            When clearing and removing all the words you won't be able to
+            recover them
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={clearPracticeWordsList} autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Dialog>
   );
 };

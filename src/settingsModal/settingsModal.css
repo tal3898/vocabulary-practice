@@ -23,3 +23,11 @@
   padding-top: 2px;
   cursor: pointer;
 }
+
+.clearPracticeBtn {
+  margin-top: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+  width: fit-content;
+  color: rgb(114, 114, 255);
+}
