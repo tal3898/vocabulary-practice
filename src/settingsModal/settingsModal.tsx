@@ -163,7 +163,7 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
           className="clearPracticeBtn"
           onClick={() => setIsWarningOpen(true)}
         >
-          Clear all practice words ({practiceWords.length})
+          Clear all practice words
         </div>
       </DialogContent>
       <DialogActions>
@@ -177,7 +177,7 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Are you sure you want to clear all the words?
+          Are you sure you want to clear all the {practiceWords.length} words?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
