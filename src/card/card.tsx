@@ -6,7 +6,10 @@ import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
-import { isRevealEnabledSelected } from "../stateManagement/settings";
+import {
+  isRevealEnabledSelected,
+  isTimerModeEnabledSelector,
+} from "../stateManagement/settings";
 import { getRandomInt, getShuffledList } from "../utils/randomFuncs";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
@@ -28,8 +31,24 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [exampleSentence, setExampleSentence] = useState<string | undefined>(
     undefined
   );
+  const [intervalId, setIntervalId] = useState<any>(null);
 
   const isRevealEnabled = useSelector(isRevealEnabledSelected);
+  const isTimerModeEnabled = useSelector(isTimerModeEnabledSelector);
+
+  useEffect(() => {
+    console.log("rere");
+    if (isTimerModeEnabled) {
+      const interval = setInterval(() => {
+        console.log("asdf");
+        changeToNextWord();
+      }, 3 * 1000);
+
+      setIntervalId(interval);
+    }
+
+    // return () => clearInterval(interval);
+  }, [isTimerModeEnabled]);
 
   useEffect(() => {
     const reshuffledWords = getShuffledList(wordsList);
@@ -66,7 +85,8 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
     return randomBinaryNumber === 1;
   };
 
-  const changeToNextWord = async () => {
+  const changeToNextWord = () => {
+    debugger;
     let isNextWordSpanish = fromLanguage === OriginalLanguage.SPANISH;
     if (fromLanguage === OriginalLanguage.RANDOM) {
       const isEnglish = getRandomOriginalLanguage();
@@ -81,7 +101,9 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       setShuffledWords(reshuffledList);
       nextWord = reshuffledList[0];
     }
-    setCurrentWordIndex(nextWordIndex);
+    setCurrentWordIndex(
+      (currentWordIndex) => (currentWordIndex + 1) % wordsList.length
+    );
     setIsTranslationHidden(true);
     setExampleSentence(undefined);
 
@@ -129,7 +151,8 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       <p className="originalWord">{originalWord}</p>
       {(!isTranslationHidden ||
         selectedLearningOption === LearningOption.NEW ||
-        !isRevealEnabled) && (
+        !isRevealEnabled ||
+        isTimerModeEnabled) && (
         <div className="translationBox">
           <div className="translationWord">{translationWord}</div>
           {/* <ExampleSentence
@@ -141,7 +164,8 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       )}
       {isTranslationHidden &&
         selectedLearningOption !== LearningOption.NEW &&
-        isRevealEnabled && (
+        isRevealEnabled &&
+        !isTimerModeEnabled && (
           <div className="revealButton" onClick={revealTranslation}>
             reveal
           </div>
@@ -151,13 +175,16 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
           <CardActionsButtons word={shuffledWords[currentWordIndex]} />
         </div>
       </div>
-      <div className="cardActions">
-        <AiOutlineArrowLeft
-          style={{ cursor: "pointer" }}
-          size={28}
-          onClick={changeToNextWord}
-        />
-      </div>
+
+      {!isTimerModeEnabled && (
+        <div className="cardActions">
+          <AiOutlineArrowLeft
+            style={{ cursor: "pointer" }}
+            size={28}
+            onClick={changeToNextWord}
+          />
+        </div>
+      )}
     </div>
   );
 }
