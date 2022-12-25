@@ -13,19 +13,17 @@ import {
   setPracticeList,
 } from "../stateManagement/practiceList";
 import {
+  isRevealEnabledSelected,
   practiceAmountSelector,
+  setIsRevealEnabled,
   setPracticeAmount,
 } from "../stateManagement/settings";
 import "./settingsModal.css";
 import Switch from "@mui/material/Switch";
-import {
-  isRevealEnabledSelected,
-  setIsRevealEnabled,
-} from "../stateManagement/revealOption";
-import { AiOutlinePlus } from "react-icons/ai";
 import { Word } from "../models/word";
 import { isWordInList } from "../utils/wordsList";
 import { learnedListSelector } from "../stateManagement/learnedList";
+import { AiOutlinePlus } from "react-icons/ai";
 
 interface Props {
   isOptionsOpen: boolean;

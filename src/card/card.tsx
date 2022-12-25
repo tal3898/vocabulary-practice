@@ -6,7 +6,7 @@ import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
 import { Word } from "../models/word";
-import { isRevealEnabledSelected } from "../stateManagement/revealOption";
+import { isRevealEnabledSelected } from "../stateManagement/settings";
 import { getRandomInt, getShuffledList } from "../utils/randomFuncs";
 import "./card.css";
 import { CardActionsButtons } from "./cardsActionsButtons/cardActionsButtons";
