@@ -34,7 +34,7 @@ import { OptionItem } from "./optionItem/OptionItem";
 import "./catalogModal.css";
 import { PracticeList } from "./practicedList/practiceList";
 import { SubjectsOption } from "./subjectsOption/subjectsOption";
-import { practiceAmountSelector } from "../stateManagement/practiceWordsAmount";
+import { practiceAmountSelector } from "../stateManagement/settings";
 
 const style = {
   position: "absolute" as "absolute",

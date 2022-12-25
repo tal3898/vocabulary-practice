@@ -15,7 +15,7 @@ import {
 import {
   practiceAmountSelector,
   setPracticeAmount,
-} from "../stateManagement/practiceWordsAmount";
+} from "../stateManagement/settings";
 import "./settingsModal.css";
 import Switch from "@mui/material/Switch";
 import {

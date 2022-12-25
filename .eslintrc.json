@@ -20,6 +20,7 @@
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/prefer-as-const": "off",
     "react/no-unescaped-entities": "off",
+    "no-debugger": "off",
     "@typescript-eslint/no-explicit-any": "off"
   }
 }

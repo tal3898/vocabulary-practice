@@ -9,7 +9,7 @@ import {
 const initialAmount = getPracticeAmount();
 
 export const slice = createSlice({
-  name: "practiceWordsAmount",
+  name: "settings",
   initialState: {
     practiceWordsAmount: initialAmount,
   },
@@ -22,7 +22,7 @@ export const slice = createSlice({
 });
 
 export const practiceAmountSelector = (state: any): number => {
-  return state.practiceWordsAmount.practiceWordsAmount;
+  return state.settings.practiceWordsAmount;
 };
 
 export const { setPracticeAmount } = slice.actions;
