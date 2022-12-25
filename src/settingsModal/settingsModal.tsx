@@ -134,14 +134,24 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
           <div className="enableRevealOptionTitle">Enable reveal button</div>
           <Switch
             checked={isRevealChecked}
-            onChange={(e) => setIsRevealChecked(e.target.checked)}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setIsTimerModeChecked(false);
+              }
+              setIsRevealChecked(e.target.checked);
+            }}
           />
         </div>
         <div className="optionItemToChange">
           <div className="enableRevealOptionTitle">Enable timer mode</div>
           <Switch
             checked={isTimerModeChecked}
-            onChange={(e) => setIsTimerModeChecked(e.target.checked)}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setIsRevealChecked(false);
+              }
+              setIsTimerModeChecked(e.target.checked);
+            }}
           />
         </div>
         <div style={{ width: "100%" }}>
