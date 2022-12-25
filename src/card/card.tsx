@@ -44,7 +44,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       const interval = setInterval(() => {
         console.log("asdf");
         changeToNextWord();
-      }, 3 * 1000);
+      }, 2 * 1000);
 
       dispatch(setTimerModeIntervalId(interval));
     }
@@ -152,8 +152,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       <p className="originalWord">{originalWord}</p>
       {(!isTranslationHidden ||
         selectedLearningOption === LearningOption.NEW ||
-        !isRevealEnabled ||
-        isTimerModeEnabled) && (
+        !isRevealEnabled) && (
         <div className="translationBox">
           <div className="translationWord">{translationWord}</div>
           {/* <ExampleSentence
@@ -165,8 +164,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
       )}
       {isTranslationHidden &&
         selectedLearningOption !== LearningOption.NEW &&
-        isRevealEnabled &&
-        !isTimerModeEnabled && (
+        isRevealEnabled && (
           <div className="revealButton" onClick={revealTranslation}>
             reveal
           </div>
