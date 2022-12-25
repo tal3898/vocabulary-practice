@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GiSoundOff, GiSoundOn } from "react-icons/gi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { LearningOption } from "../models/learningOption";
 import { OriginalLanguage } from "../models/originalLanguage";
@@ -9,6 +9,7 @@ import { Word } from "../models/word";
 import {
   isRevealEnabledSelected,
   isTimerModeEnabledSelector,
+  setTimerModeIntervalId,
 } from "../stateManagement/settings";
 import { getRandomInt, getShuffledList } from "../utils/randomFuncs";
 import "./card.css";
@@ -31,10 +32,11 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   const [exampleSentence, setExampleSentence] = useState<string | undefined>(
     undefined
   );
-  const [intervalId, setIntervalId] = useState<any>(null);
 
   const isRevealEnabled = useSelector(isRevealEnabledSelected);
   const isTimerModeEnabled = useSelector(isTimerModeEnabledSelector);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("rere");
@@ -44,7 +46,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
         changeToNextWord();
       }, 3 * 1000);
 
-      setIntervalId(interval);
+      dispatch(setTimerModeIntervalId(interval));
     }
 
     // return () => clearInterval(interval);
@@ -86,7 +88,6 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
   };
 
   const changeToNextWord = () => {
-    debugger;
     let isNextWordSpanish = fromLanguage === OriginalLanguage.SPANISH;
     if (fromLanguage === OriginalLanguage.RANDOM) {
       const isEnglish = getRandomOriginalLanguage();
