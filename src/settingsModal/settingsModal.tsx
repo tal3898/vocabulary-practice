@@ -14,8 +14,10 @@ import {
 } from "../stateManagement/practiceList";
 import {
   isRevealEnabledSelected,
+  isTimerModeEnabledSelector,
   practiceAmountSelector,
   setIsRevealEnabled,
+  setIsTimerModeEnabled,
   setPracticeAmount,
 } from "../stateManagement/settings";
 import "./settingsModal.css";
@@ -33,6 +35,7 @@ interface Props {
 export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
   const amountToPractice = useSelector(practiceAmountSelector);
   const isRevealEnabled = useSelector(isRevealEnabledSelected);
+  const isTimerMode = useSelector(isTimerModeEnabledSelector);
   const practiceWords = useSelector(practiceListSelector);
   const learnedList = useSelector(learnedListSelector);
   const [isWarningOpen, setIsWarningOpen] = useState(false);
@@ -43,6 +46,7 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
   const [clientAmountToPractice, setClientAmountToPractice] =
     useState(amountToPractice);
   const [isRevealChecked, setIsRevealChecked] = useState(true);
+  const [isTimerModeChecked, setIsTimerModeChecked] = useState(false);
   const [wordsInputText, setWordsInputText] = useState("");
 
   const dispatch = useDispatch();
@@ -89,12 +93,14 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
   const saveSettings = () => {
     dispatch(setPracticeAmount(clientAmountToPractice));
     dispatch(setIsRevealEnabled(isRevealChecked));
+    dispatch(setIsTimerModeEnabled(isTimerModeChecked));
     setIsOptionsOpen(false);
   };
 
   const cancelSettings = () => {
     setClientAmountToPractice(amountToPractice);
     setIsRevealChecked(isRevealEnabled);
+    setIsTimerModeChecked(isTimerMode);
     setIsOptionsOpen(false);
   };
 
@@ -129,6 +135,13 @@ export const SettingsModal = ({ isOptionsOpen, setIsOptionsOpen }: Props) => {
           <Switch
             checked={isRevealChecked}
             onChange={(e) => setIsRevealChecked(e.target.checked)}
+          />
+        </div>
+        <div className="optionItemToChange">
+          <div className="enableRevealOptionTitle">Enable timer mode</div>
+          <Switch
+            checked={isTimerModeChecked}
+            onChange={(e) => setIsTimerModeChecked(e.target.checked)}
           />
         </div>
         <div style={{ width: "100%" }}>

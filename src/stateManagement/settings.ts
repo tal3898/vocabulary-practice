@@ -13,6 +13,7 @@ export const slice = createSlice({
   initialState: {
     practiceWordsAmount: initialAmount,
     isRevealEnabled: true,
+    isTimerModeEnabled: false,
   },
   reducers: {
     setPracticeAmount: (state: any, action: PayloadAction<number>) => {
@@ -22,6 +23,9 @@ export const slice = createSlice({
     setIsRevealEnabled: (state: any, action: PayloadAction<boolean>) => {
       state.isRevealEnabled = action.payload;
     },
+    setIsTimerModeEnabled: (state: any, action: PayloadAction<boolean>) => {
+      state.isTimerModeEnabled = action.payload;
+    },
   },
 });
 
@@ -29,9 +33,14 @@ export const isRevealEnabledSelected = (state: any): boolean => {
   return state.settings.isRevealEnabled;
 };
 
+export const isTimerModeEnabledSelector = (state: any): boolean => {
+  return state.settings.isTimerModeEnabled;
+};
+
 export const practiceAmountSelector = (state: any): number => {
   return state.settings.practiceWordsAmount;
 };
 
-export const { setPracticeAmount, setIsRevealEnabled } = slice.actions;
+export const { setPracticeAmount, setIsRevealEnabled, setIsTimerModeEnabled } =
+  slice.actions;
 export const reducer = slice.reducer;
