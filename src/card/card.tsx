@@ -129,7 +129,7 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
 
   return (
     <div className="card">
-      <div style={{ display: "flex" }}>
+      {/* <div style={{ display: "flex" }}>
         <div
           className="audioBtn"
           onClick={() => {
@@ -148,35 +148,37 @@ function Card({ selectedLearningOption, fromLanguage, wordsList }: Props) {
         >
           {originalLanguage} {"->"} {translationLanguage}
         </p>
-      </div>
-      <p className="originalWord">{originalWord}</p>
-      {(!isTranslationHidden ||
-        selectedLearningOption === LearningOption.NEW ||
-        !isRevealEnabled) && (
-        <div className="translationBox">
-          <div className="translationWord">{translationWord}</div>
-          {/* <ExampleSentence
+      </div> */}
+      <div className="wordDesc">
+        <p className="originalWord">{originalWord}</p>
+        {(!isTranslationHidden ||
+          selectedLearningOption === LearningOption.NEW ||
+          !isRevealEnabled) && (
+          <div className="translationBox">
+            <div className="translationWord">{translationWord}</div>
+            {/* <ExampleSentence
             spanishWord={shuffledWords[currentWordIndex].spanish}
             exampleSentence={exampleSentence}
             setExampleSentence={setExampleSentence}
           /> */}
-        </div>
-      )}
-      {isTranslationHidden &&
-        selectedLearningOption !== LearningOption.NEW &&
-        isRevealEnabled && (
-          <div className="revealButton" onClick={revealTranslation}>
-            reveal
           </div>
         )}
-      <div style={{ display: "flex", marginTop: "auto" }}>
+        {isTranslationHidden &&
+          selectedLearningOption !== LearningOption.NEW &&
+          isRevealEnabled && (
+            <div className="revealButton" onClick={revealTranslation}>
+              reveal
+            </div>
+          )}
+      </div>
+      <div className="cardActions">
         <div style={{ marginLeft: "auto", marginRight: "auto" }}>
           <CardActionsButtons word={shuffledWords[currentWordIndex]} />
         </div>
       </div>
 
       {!isTimerModeEnabled && (
-        <div className="cardActions">
+        <div className="skipWordActions">
           <AiOutlineArrowLeft
             style={{ cursor: "pointer" }}
             size={28}
