@@ -1,5 +1,6 @@
-import React, { useState } from "react";
 import { IoMdSettings } from "react-icons/io";
+import React, { useState } from "react";
+import { FaBars } from "react-icons/fa";
 import { BiCategoryAlt } from "react-icons/bi";
 import translate from "translate";
 import "./App.css";
@@ -19,6 +20,7 @@ import {
   Button,
 } from "@mui/material";
 import { SettingsModal } from "./settingsModal/settingsModal";
+import SlidingMenu from "./slidingMenu/slidingMenu";
 
 const stub = [
   {
@@ -30,6 +32,7 @@ const stub = [
 function App() {
   const [open, setOpen] = React.useState(false);
   const [isOptionsOpen, setIsOptionsOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [wordsList, setWordsList] = useState<Word[]>(stub);
   const [fromLanguage, setFromLanguage] = useState(OriginalLanguage.ENGLISH);
   const [selectedLearningOption, setSelectedLearningOption] = useState(
@@ -52,7 +55,12 @@ function App() {
     <Provider store={store}>
       <div className="App" style={{ padding: 1 }}>
         {/* <p>hjel</p> */}
+        <SlidingMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+
         <div className="header">
+          <div onClick={() => setIsMenuOpen(true)} className="listButton">
+            <FaBars color="rgb(106 106 106)" size={40} />
+          </div>
           <div onClick={() => setIsOptionsOpen(true)} className="listButton">
             <IoMdSettings color="rgb(106 106 106)" size={40} />
           </div>
