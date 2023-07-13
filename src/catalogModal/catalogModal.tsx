@@ -49,9 +49,9 @@ const style = {
 };
 
 interface Props {
-  onChangeWordsList: (wordsList: Word[]) => void;
   open: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  onChangeWordsList: (wordsList: Word[]) => void;
   selectedLearningOption: LearningOption;
   setSelectedLearningOption: (option: LearningOption) => void;
 }

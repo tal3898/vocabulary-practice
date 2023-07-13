@@ -55,7 +55,13 @@ function App() {
     <Provider store={store}>
       <div className="App" style={{ padding: 1 }}>
         {/* <p>hjel</p> */}
-        <SlidingMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+        <SlidingMenu
+          isOpen={isMenuOpen}
+          setIsOpen={setIsMenuOpen}
+          selectedLearningOption={selectedLearningOption}
+          setSelectedLearningOption={setSelectedLearningOption}
+          onChangeWordsList={setWordsList}
+        />
 
         <div className="header">
           <div onClick={() => setIsMenuOpen(true)} className="listButton">
