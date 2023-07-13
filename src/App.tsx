@@ -61,12 +61,12 @@ function App() {
           <div onClick={() => setIsMenuOpen(true)} className="listButton">
             <FaBars color="rgb(106 106 106)" size={40} />
           </div>
-          <div onClick={() => setIsOptionsOpen(true)} className="listButton">
+          {/* <div onClick={() => setIsOptionsOpen(true)} className="listButton">
             <IoMdSettings color="rgb(106 106 106)" size={40} />
           </div>
           <div onClick={() => setOpen(true)} className="listButton">
             <BiCategoryAlt color="rgb(106 106 106)" size={40} />
-          </div>
+          </div> */}
           <div
             onClick={() => changeOriginalLanguage()}
             className="originalLangBtn"
