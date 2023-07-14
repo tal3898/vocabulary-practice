@@ -7,6 +7,7 @@ import { getShuffledList } from "../utils/randomFuncs";
 import { practiceAmountSelector } from "../stateManagement/settings";
 import { Word } from "../models/word";
 import { LearningOption } from "../models/learningOption";
+import { learnedListSelector } from "../stateManagement/learnedList";
 
 interface Props {
   isOpen: boolean;
@@ -24,6 +25,8 @@ const SlidingMenu = ({
   setSelectedLearningOption,
 }: Props) => {
   const practiceWords = useSelector(practiceListSelector);
+  const learnedList = useSelector(learnedListSelector);
+
   const amountToPractice = useSelector(practiceAmountSelector);
 
   const savePracticedWords = async () => {
@@ -39,6 +42,17 @@ const SlidingMenu = ({
     }
   };
 
+  const saveLearnedWords = async () => {
+    if (learnedList.length > 0) {
+      onChangeWordsList(learnedList);
+      setSelectedLearningOption(LearningOption.KNOW);
+      setIsOpen(false);
+      //   setErrorText(undefined);
+    } else {
+      //   setErrorText("Words list is empty");
+    }
+  };
+
   return (
     <Sidebar
       sidebar={
@@ -47,7 +61,9 @@ const SlidingMenu = ({
           <div className="menuOptionItem" onClick={() => savePracticedWords()}>
             Train
           </div>
-          <div className="menuOptionItem">Know</div>
+          <div className="menuOptionItem" onClick={() => saveLearnedWords()}>
+            Know
+          </div>
           <div className="menuOptionItem">Subjects</div>
           <div className="menuOptionItem">Chat</div>
           <div className="menuOptionItem">Settings</div>
