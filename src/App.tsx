@@ -22,6 +22,7 @@ import {
 import { SettingsModal } from "./settingsModal/settingsModal";
 import SlidingMenu from "./slidingMenu/slidingMenu";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Subjects } from "./subjects/subjects";
 
 const stub = [
   {
@@ -94,7 +95,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/about" element={<p>bdika</p>} />
+              <Route path="/subjects" element={<Subjects />} />
             </Routes>
           </BrowserRouter>
         </div>
