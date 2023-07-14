@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import { SettingsModal } from "./settingsModal/settingsModal";
 import SlidingMenu from "./slidingMenu/slidingMenu";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const stub = [
   {
@@ -81,11 +82,21 @@ function App() {
           </div>
         </div>
         <div className="content" style={{ display: "flex", height: "100%" }}>
-          <Card
-            selectedLearningOption={selectedLearningOption}
-            fromLanguage={fromLanguage}
-            wordsList={wordsList}
-          />
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Card
+                    selectedLearningOption={selectedLearningOption}
+                    fromLanguage={fromLanguage}
+                    wordsList={wordsList}
+                  />
+                }
+              />
+              <Route path="/about" element={<p>bdika</p>} />
+            </Routes>
+          </BrowserRouter>
         </div>
 
         <CatalogModal
