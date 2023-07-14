@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "react-sidebar";
 import "./slidingMenu.css";
 import { useSelector } from "react-redux";
@@ -8,6 +8,13 @@ import { practiceAmountSelector } from "../stateManagement/settings";
 import { Word } from "../models/word";
 import { LearningOption } from "../models/learningOption";
 import { learnedListSelector } from "../stateManagement/learnedList";
+import randomWords from "random-words";
+import translate from "translate";
+import { GiPerspectiveDiceSixFacesRandom, GiStrongMan } from "react-icons/gi";
+import { MenuOptionItem } from "./menuOptionItem/menuOptionItem";
+import { BiCategoryAlt, BiMemoryCard } from "react-icons/bi";
+import { BsChatDots, BsDice3 } from "react-icons/bs";
+import { AiOutlineSetting } from "react-icons/ai";
 
 interface Props {
   isOpen: boolean;
@@ -53,20 +60,59 @@ const SlidingMenu = ({
     }
   };
 
+  const NEW_WORDS_GENERATOR_SIZE = 70;
+  translate.engine = "google";
+
+  const saveRandomList = async () => {
+    const randomWordsToLearn = randomWords(NEW_WORDS_GENERATOR_SIZE);
+    const wordsList: Word[] = [];
+    for (const word of randomWordsToLearn) {
+      const spanishTrans = await translate(word, "es");
+      wordsList.push({
+        english: word,
+        spanish: spanishTrans,
+      });
+    }
+    onChangeWordsList(wordsList);
+    setSelectedLearningOption(LearningOption.NEW);
+    setIsOpen(false);
+  };
+
   return (
     <Sidebar
       sidebar={
         <div>
-          <div className="menuOptionItem">New</div>
-          <div className="menuOptionItem" onClick={() => savePracticedWords()}>
-            Train
-          </div>
-          <div className="menuOptionItem" onClick={() => saveLearnedWords()}>
-            Know
-          </div>
-          <div className="menuOptionItem">Subjects</div>
-          <div className="menuOptionItem">Chat</div>
-          <div className="menuOptionItem">Settings</div>
+          <MenuOptionItem
+            onClick={() => saveRandomList()}
+            reactIcon={BsDice3}
+            text="New"
+            disabled
+          />
+          <MenuOptionItem
+            onClick={() => savePracticedWords()}
+            reactIcon={GiStrongMan}
+            text="Train"
+          />
+          <MenuOptionItem
+            onClick={() => saveLearnedWords()}
+            reactIcon={BiMemoryCard}
+            text="Know"
+          />
+          <MenuOptionItem
+            onClick={() => saveLearnedWords()}
+            reactIcon={BiCategoryAlt}
+            text="Subjects"
+          />
+          <MenuOptionItem
+            onClick={() => saveLearnedWords()}
+            reactIcon={BsChatDots}
+            text="Chat"
+          />
+          <MenuOptionItem
+            onClick={() => saveLearnedWords()}
+            reactIcon={AiOutlineSetting}
+            text="Settings"
+          />
         </div>
       }
       open={isOpen}

@@ -1,0 +1,21 @@
+.menuOptionItem {
+  padding: 10px;
+  border-bottom: solid;
+  border-bottom-width: 1px;
+  font-size: 13px;
+  display: flex;
+}
+
+.menuOptionItem:hover {
+  background-color: #d0d0d0;
+  cursor: pointer;
+}
+
+.disabledOptionItem {
+  color: #8d8d8d;
+  padding: 10px;
+  border-bottom: solid;
+  border-bottom-width: 1px;
+  font-size: 13px;
+  display: flex;
+}
